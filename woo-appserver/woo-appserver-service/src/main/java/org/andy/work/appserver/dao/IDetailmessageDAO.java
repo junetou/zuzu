@@ -20,6 +20,8 @@ public interface IDetailmessageDAO extends IGenericDAO{
 	 
 	 SearchResponse<IDetailmessage> searchUsers(SearchRequest<AcctUserSearchCriteria> searchReq);
 	 
+	 SearchResponse<IDetailmessage> newsearchUsers(SearchRequest<AcctUserSearchCriteria> searchReq);
+	 
 	 int checkcount();
 	 
 	 SearchResponse<IDetailmessage> searchmessage(SearchRequest<AcctUserSearchCriteria> searchReq,Integer usernumber,String keyword);

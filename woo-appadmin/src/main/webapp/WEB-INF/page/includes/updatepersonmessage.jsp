@@ -13,7 +13,7 @@
 }
     #footer{  
    position: fixed;  
-   bottom: 30px; /* 关键 */  
+   bottom: 0; /* 关键 */  
    left:0; /* IE下一定要记得 */  
    height: 30px;         /* footer的高度一定要是固定值*/
    z-index:999;  
@@ -24,6 +24,8 @@
    background-color:#666;
    width:600px;
 }  
+
+
 </style>
 <title>租一天</title>
 
@@ -43,7 +45,7 @@
    <woo:permission operationType="THINGS_EDIT" roleType="ROLE_THINGS">
    <div  id="main">
        <form action="<c:url value='/portal/person/update'/>" method="post" enctype="multipart/form-data" >
-        <input type="submit" id="post" name="post" class="btn btn-outline btn-info" onclick="uploadFile()"  value="我要提交"/>	
+        <input type="submit" id="post" name="post" class="btn btn-default btn-sm" onclick="uploadFile()"  value="我要提交"/>	
         <div class="row">
         
         <div class="col-md-6">
@@ -57,7 +59,7 @@
         </div>
         <div class="form-gourp">
            <label>email</label>
-           <input id="email" type="text" name="email" value="${email}"  class="form-control"  required />
+           <input id="email" type="text" name="email" value="${email}"  class="form-control" required />
         </div>
         <div class="form-gourp">
           <label>个人地址</label>
@@ -73,13 +75,19 @@
           <label>联系电话<sup>*</sup></label>
           <input id="phone" type="text" name="phone" value="${phone }"  class="form-control" required />
        </div>
+       <div class="form-gourp">
+          <label>微信<sup>*</sup></label>
+          <input id="wechat" type="text" name="wechat" value="${wechat }"  class="form-control" required />
+       </div>
        </div>
         <div class="col-md-6">
           <div class="form-group">
           <label>上传头像</label>
-          <input type="file"  name="file0" id="file0"  onchange="getPhotoSize0(this,0)" multiple="true" />
-          <img src="<woo:url value="/static/userpicture/${onepath}"/>" id="img0"  width="50px" height="50px" class="img-circle" ></th>
+          <input type="file"  name="file0" id="file0" class="file" onchange="getPhotoSize0(this,0)" multiple="true" />
           </div>
+         </div>
+         <div style="height:150px;">
+         
          </div>
                  
         </div> 
@@ -88,10 +96,9 @@
    </div>
    <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-warning" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;"><a href="<c:url value='/portal/map/showmap'/>" ><b><i class="glyphicon glyphicon-gift">地图</i></b></a></li>
-	                   <li class="btn btn-success" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/list/showlist'/>"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
-                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/person'/>"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
-        </ul>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;"><a href="<c:url value='/portal/map/showmap'/>" style="color:#000000" ><i class="glyphicon glyphicon-gift">地图</i></a></li>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/list/showlist'/>" style="color:#000000"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
+                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/person'/>" style="color:#000000"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>    </ul>
   </div>
    </woo:permission>
    
@@ -108,7 +115,7 @@
 		      		<div class="form-group">
 			            <label for="recipient-name" class="control-label">登陆密码<sup>*</sup></label>
 			            <input type="text" class="form-control" id="password" name="password">
-			            <p class="help-block">密码是必需的，并且不能是空的</p> 
+			            <p class="help-block">密码是必需的，并且不能是空的，必需包含数字和字母</p> 
 		          	</div>
 		      	</div>
 		      	<div class="modal-footer">

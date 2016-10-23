@@ -17,7 +17,9 @@
 	<http pattern="/res/sea-modules/**" security="none"/> -->
     
 	<http>
-	    <intercept-url pattern="/secure/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	    <intercept-url pattern="/secure/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	    <intercept-url pattern="/WeChatRequestServlet" access="IS_AUTHENTICATED_ANONYMOUSLY"/>	    
+	    <intercept-url pattern="/WeChatAccessServlet" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<intercept-url pattern="/**" access="ROLE_USER"/>
 		<intercept-url pattern="/portal/common/**" access="ROLE_COMMON"/>
 		<intercept-url pattern="/portal/admin/**" access="ROLE_ADMIN"/>

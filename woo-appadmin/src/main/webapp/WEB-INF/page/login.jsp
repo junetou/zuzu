@@ -15,9 +15,10 @@
     <link href="<woo:url value='/static/bootstrap/css/metisMenu.min.css'/>" rel="stylesheet">
     <link href="<woo:url value='/static/bootstrap/css/sb-admin-2.css'/>" rel="stylesheet">
     <link href="<woo:url value='/static/bootstrap/cssfont-awesome.min.css'/>" rel="stylesheet" type="text/css">
+    <script src="<woo:url value='/static/bootstrap/jquery/jquery.min.js'/>"></script>
 </head>
 
-<body>
+<body >
 	<div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -29,21 +30,23 @@
                         <form action="<c:url value='/secure/check'/>" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                	<input id="usrname" type="text" class="form-control" name="usrname" placeholder="Username" value="${username }" required autofocus/>
+                                	<input id="usrname" type="text" class="form-control" name="usrname" placeholder="Username" value="${username }" required />
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                                    <input id="password" type="password" class="form-control" name="password" value="${pass }" placeholder="Password" required>
                                 </div>
                                 <div class="checkbox">
+                                <!--  
                                     <label>
                                         <input name="remember" type="checkbox" ${checkusername } value="remember">记住账号
                                     </label> 
-                                </div> 
+                                </div>
+                                --> 
                                 <div class="form-group" style="color:#F00;">
 									<span id="message">${SPRING_SECURITY_LAST_EXCEPTION }</span> 
 								</div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <input type="submit" class="btn btn-lg btn-success btn-block" tabindex="3" value="登录"/>
+                                <input type="submit" id="sub" class="btn btn-lg btn-success btn-block"  tabindex="3" value="登录"/>
                             </fieldset>
                         </form>
                     </div>
@@ -54,3 +57,16 @@
 
 </body>
 </html>
+
+
+<script>
+if($('#usrname').val =='' ){
+	alert("请输入账号");
+}
+else if($('#password').val == ''){
+	alert("请输入密码");
+}
+else{
+	$('#sub').click();
+}
+</script>

@@ -10,6 +10,8 @@ import org.andy.work.paging.SearchResponse;
 public interface ITradeDAO extends IGenericDAO {
 
 	 SearchResponse<ITrade> searchborrow(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
+	 
+	 SearchResponse<ITrade> searchborrow1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
 	
 	 SearchResponse<ITrade> searchseller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
 	 

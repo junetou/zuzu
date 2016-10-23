@@ -7,6 +7,7 @@
 <head><title>租一天</title>
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 	#page-wrapper {padding:0;}
 	.tips-btn{
@@ -88,7 +89,8 @@ margin-right: 6px;
    height:33%;
 }
 .gallery li a img {
-			max-width: 90px;
+			width: 50px;
+			height:50px;
 }
 
 </style>
@@ -104,66 +106,75 @@ margin-right: 6px;
 </head>
 
 <div id="wrapper" style="background-color:#FFFFCC " >
-     <nav class="navbar navbar-default navbar-static-top " role="navigation" style="margin-bottom: 0; background-color:#FFFFCC; top:35px; ">		
+     <nav class="navbar navbar-default navbar-static-top " role="navigation" style="margin-bottom: 0; background-color:#FFFFCC; top:50px; ">		
 			<ul class="nav" id="side-menu">			
                <div id="focus"> 
                <ul> 
-               <li> <a href="http://www.lanrentuku.com/" target="_blank"><img src="<woo:url value="/static/images/5.png"/>" alt="" id="lis" /></a></li> 
-               <li ><a href="http://www.lanrentuku.com/" target="_blank"><img src="<woo:url value="/static/images/5.png"/>" alt=""  id="lis1" /></a></li> 
-               <li ><a href="http://www.lanrentuku.com/" target="_blank"><img src="<woo:url value="/static/images/5.png"/>" alt=""  id="lis2" /></a></li> 
-               <li ><a href="http://www.lanrentuku.com/" target="_blank"><img src="<woo:url value="/static/images/5.png"/>" alt="" id="lis3" /></a></li> 
-               <li  ><a href="http://www.lanrentuku.com/" target="_blank"><img src="<woo:url value="/static/images/5.png"/>" alt="" id="lis4" /></a></li> 
+               <li> <a href="http://www.junetou.pw" ><img src="<woo:url value="/static/images/5.png"/>" alt="" id="lis" /></a></li> 
+               <li ><a href="http://www.lanrentuku.pw" ><img src="<woo:url value="/static/images/5.png"/>" alt=""  id="lis1" /></a></li> 
+               <li ><a href="http://www.lanrentuku.pw" ><img src="<woo:url value="/static/images/5.png"/>" alt=""  id="lis2" /></a></li> 
+               <li ><a href="http://www.lanrentuku.pw" ><img src="<woo:url value="/static/images/5.png"/>" alt="" id="lis3" /></a></li> 
+               <li  ><a href="http://www.lanrentuku.pw" ><img src="<woo:url value="/static/images/5.png"/>" alt="" id="lis4" /></a></li> 
                </ul> 
                </div> 
 		</ul>
      </nav>
-     <div id="top"   style="background-color:#FFFFCC;height:20px;" >
-        <ol class="breadcrumb" style="background-color:#FFFFCC;text-align:center;height:20px;">
+     <div id="top"   style="background-color:#FFFFCC;" >
+        <ol class="breadcrumb" style="background-color:#FFFFCC;text-align:center;">
            <li>
-             <form method="post"  style="background-color:#FFFFCC">
+           <form method="post">
 		  	 <div class="input-group" style=" margin:0;border:0;padding:0;" >
-		  	 <span class="input-group-addon"><img src="<woo:url value="/static/images/4.png"/>" alt="QQ商城焦点图效果下载" id="lis" width="20px;" height="20px;" class="img-circle" /></span>
-		  	 <input type="text" class="form-control" name="keyWord" id="keyWord" placeholder="Search for..." style="background-color:#FFFFCC"  >
+		  	 <span class="input-group-addon"><img src="<woo:url value="/static/userpicture/${pic }"/>" alt="个人头像" id="lis" width="20px;" height="20px;" class="img-circle" /></span>
+		  	<input type="text" class="form-control" name="keyWord" id="keyWord" placeholder="Search for..." style="background-color:#FFFFCC"  >
 		  	<span class="input-group-btn">
-             <input type="submit"  class="btn btn-primary"  value="搜索" >
+                <input type="submit"  class="btn btn-primary"   value="搜索" >
              </span>
 		  	</div>
 		  	</form>
 		  	</li>
 		</ol>
     </div>
-     <div style="height:55px;">
+     <div style="height:75px;">
      <p></p>
      </div>
     <c:forEach items="${grid.datas }" varStatus="index" var="data">
     <ul class="list-group">
     <li class="list-group-item" style="background-image:url('<woo:url value="/static/images/c.jpg"/>');">
     <a href="#">
-    <p><span><img alt="" src="<woo:url value="/static/picture/${data.thingspicturename }"/>" class="img-circle" align="buttom;" width="10%" height="10%;" >&nbsp&nbsp&nbsp</span><b>用户名:admin</b><span>
+    <p><span><img alt="" src="<woo:url value="/static/userpicture/${data.thingspicturename }"/>" class="img-circle" align="buttom;" width="10%" height="10%;" >&nbsp&nbsp&nbsp</span><b>用户名:${data.username }</b><span>
     <span style="float:right;color:red;">价格：￥${data.thingsprice }</span>
     </a>   
     <p> 
-    <ul id="auto-loop" class="gallery" >
-              <li data-src="<woo:url value="/static/images/4.png"/>" > 
+    <ul  class="gallery" >
+              <c:if test="${data.onepicture != '' }">
+              <li data-src="<woo:url value="/static/thingspicture/${data.onepicture }"/>" > 
         	  <a href="#">
-              <img src="<woo:url value="/static/images/4.png"/>" alt="" id="lis"  class="img-rounded" />
+              <img src="<woo:url value="/static/thingspicture/${data.onepicture }"/>" alt="" id="lis"  width="50px;" height="50px;" class="img-rounded" />
               </a>
               </li>
-              <li data-src="<woo:url value="/static/images/2.png"/>"   > 
+              </c:if>
+              <c:if test="${data.twopicture != '' }">
+              <li data-src="<woo:url value="/static/thingspicture/${data.twopicture }"/>"   > 
         	  <a href="#">
-              <img src="<woo:url value="/static/images/4.png"/>" alt="" id="lis"   class="img-rounded" />
+              <img src="<woo:url value="/static/thingspicture/${data.twopicture }"/>" alt="" id="lis" width="50px;" height="50px;"  class="img-rounded" />
               </a>
               </li>
-              <li data-src="<woo:url value="/static/images/3.png"/>" >  
+              </c:if>
+              <c:if test="${data.threepicture != '' }">
+              <li data-src="<woo:url value="/static/thingspicture/${data.threepicture }"/>" >  
         	  <a href="#">
-              <img src="<woo:url value="/static/images/4.png"/>" alt="" id="lis"  class="img-rounded" />
+              <img src="<woo:url value="/static/thingspicture/${data.threepicture }"/>" alt="" id="lis" width="50px;" height="50px;"  class="img-rounded" />
               </a> 
               </li>
+              </c:if>
+              </br>
     </ul>
     </br>
     </br>
     </p>
     <p class="text-primary" style="font-family: Helvetica,Hiragino Sans GB,Microsoft Yahei,微软雅黑, Arial, sans-serif;font-size:12px;">产品名字：${data.thingsname }
+    </br>
+    最长租借时间(天):${data.thingsdate }
     </br>
               详细信息:${data.thingsdesc }
     </p>
@@ -187,8 +198,8 @@ margin-right: 6px;
 
     <div id="topper" style="background-color:#FFFFCC;" >
                        <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-default" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:50%;background-color:#FFE69D;"><a href="<c:url value='/portal/things/listmessage'/>"  ><b>物品</b></a></li>
-	                   <li class="btn btn-inverse" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:50%;background-color:#FFE69D;" ><a href="<c:url value='/show/otherproduct'/>"><b>需求</b></a></li>
+	                   <li class="btn btn-default" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:50%;background-color:#FFE69D;border-radius:0px;"><a href="<c:url value='/portal/things/listmessage'/>"  ><b>物品</b></a></li>
+	                   <li class="btn btn-inverse" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:50%;background-color:#FFE69D;border-radius:0px;" ><a href="<c:url value='/portal/needs/listmessage'/>"><b>需求</b></a></li>
                        </ul>
     </div>
     
@@ -200,10 +211,10 @@ margin-right: 6px;
        </div>
   <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-warning" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;"><a href="<c:url value='/portal/map/showmap'/>" ><b><i class="glyphicon glyphicon-gift">地图</i></b></a></li>
-	                   <li class="btn btn-success" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/list/showlist'/>"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
-                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/person'/>"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
-        </ul>
+	                     <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;"><a href="<c:url value='/portal/map/showmap'/>" style="color:#000000" ><i class="glyphicon glyphicon-gift">地图</i></a></li>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/list/showlist'/>" style="color:#000000"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
+                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/person'/>" style="color:#000000"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
+	                    </ul>
   </div>
 </div>
 
@@ -251,7 +262,7 @@ var oImg=document.getElementById('footer');
 oImg.style.width='100%'; 
 
 var oImg=document.getElementById('topper');
-oImg.style.top=document.getElementById("focus").offsetHeight+32+'px'; 
+oImg.style.top=document.getElementById("focus").offsetHeight+50+'px'; 
 
 var oImg=document.getElementById('top');
 oImg.style.width='100%';

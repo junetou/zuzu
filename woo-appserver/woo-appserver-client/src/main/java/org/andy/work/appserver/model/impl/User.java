@@ -60,6 +60,7 @@ public class User implements Serializable, IUser {
 	private Integer userType; // See UserType class
 	private IUserGroup userGroup;
 	private String picture;
+	private Integer chatnumber;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -247,4 +248,13 @@ public class User implements Serializable, IUser {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+	
+	@Column(name="chatnumber")
+	public Integer getChatnumber() {
+		return chatnumber;
+	}
+	public void setChatnumber(Integer chatnumber) {
+		this.chatnumber = chatnumber;
+	}
+	
 }

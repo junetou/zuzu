@@ -56,7 +56,7 @@ img {border:0;}
    border:0;
    padding:0;
    background-color:#666;
-   width:600px;
+   width:600px;}
 </style>
 
 <body>
@@ -64,13 +64,17 @@ img {border:0;}
   
      <nav class="navbar navbar-default navbar-static-top " role="navigation" style="margin-bottom: 0; background-color:#FFFFCC; ">
        
+       <div style="position:relative; margin:auto; top:0px;z-index:999; right:0px; ">
+               <p><a href="<c:url value='/portal/person/direction'/>"><b><i>使用说明</i></b></a></p>
+        <p style="line-height:0px;"><a href="<c:url value='/portal/fed/showfed'/>"><b><i>反馈信息</i></b></a></p>
+       </div>
 		
 			<ul class="nav" id="side-menu">
                
                <li>
                <div style="background-image:url('<woo:url value="/static/images/c.jpg"/>');text-align:center;">
-               <img src="<woo:url value="/static/images/4.png"/>" alt="QQ商城焦点图效果下载" id="lis" width="50px;" height="50px;" class="img-circle" />
-               <p class="text-primary" style="font-family: Helvetica,Hiragino Sans GB,Microsoft Yahei,微软雅黑, Arial, sans-serif"><b><i>用户名:admin</i></b></p>
+               <img src="<woo:url value="/static/userpicture/${picture }"/>" alt="QQ商城焦点图效果下载" id="lis" width="50px;" height="50px;" class="img-circle" />
+               <p class="text-primary" style="font-family: Helvetica,Hiragino Sans GB,Microsoft Yahei,微软雅黑, Arial, sans-serif"><b><i>用户名:${name }</i></b></p>
                </div>
                </li>
             
@@ -89,8 +93,11 @@ img {border:0;}
                    </li>
                 </c:forEach>
                 <li><a href="<c:url value='/portal/chat/wchat'/>"><i class="	glyphicon glyphicon-comment"></i>聊天(完善中)</a></li>
-                <li><a href="<c:url value='/portal/admin/legal/showlegal'/>"><i class="glyphicon glyphicon-exclamation-sign"></i>法律声明</a></li>
+                <c:if test="${number ==0 }">
+                <li><a href="<c:url value='/portal/chat/register'/>"><i class="	glyphicon glyphicon-comment"></i>注册聊天账号</a></li>
+                </c:if>
                 <li><a href="javascript:void(0);" data-id="${userid }" class="btnEdit" data-url="/portal/person/form"><i class="glyphicon glyphicon-edit"></i>修改个人信息</a></li>
+                <li><a href="<c:url value='/portal/admin/legal/showlegal'/>"><i class="glyphicon glyphicon-exclamation-sign"></i>法律声明</a></li>
                 <li><a href="<c:url value='/logout'/>" > <i class="fa fa-user fa-fw"></i>注销账户</a></li>
 		</ul>
 		
@@ -98,10 +105,10 @@ img {border:0;}
       </nav>  
      <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-warning" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;"><a href="<c:url value='/portal/map/showmap'/>" ><b><i class="glyphicon glyphicon-gift">地图</i></b></a></li>
-	                   <li class="btn btn-success" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/list/showlist'/>"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
-                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/person'/>" id="abc" ><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
-        </ul>
+	                     <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;"><a href="<c:url value='/portal/map/showmap'/>" style="color:#000000" ><i class="glyphicon glyphicon-gift">地图</i></a></li>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/list/showlist'/>" style="color:#000000"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
+                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/person'/>" style="color:#000000" id="abc"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
+                             </ul>
   </div>
 </div>
 

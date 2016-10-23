@@ -19,6 +19,8 @@ public interface IDetailmessageMain {
 	 
 	 SearchResponse<IDetailmessage> searchUser(SearchRequest<AcctUserSearchCriteria> searchReq);
 	 
+	 SearchResponse<IDetailmessage> newsearchUser(SearchRequest<AcctUserSearchCriteria> searchReq);
+	 
 	 int checkcount();
 	 
 	 SearchResponse<IDetailmessage> searchmessage(SearchRequest<AcctUserSearchCriteria> searchReq,Integer usernumber,String keyword);

@@ -9,7 +9,9 @@ import org.andy.work.paging.SearchResponse;
 public interface ITradeMain {
 
 	 SearchResponse<ITrade> searchborrow(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
-		
+	 
+	 SearchResponse<ITrade> searchborrow1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
+	 
 	 SearchResponse<ITrade> searchseller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
 	 
 	 SearchResponse<ITrade> searchsuccess(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);

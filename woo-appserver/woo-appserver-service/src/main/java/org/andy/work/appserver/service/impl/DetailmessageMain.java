@@ -44,6 +44,11 @@ public class DetailmessageMain implements IDetailmessageMain {
 	}
 	
 	@Override
+	public SearchResponse<IDetailmessage> newsearchUser(SearchRequest<AcctUserSearchCriteria> searchReq){
+		return this.detailmessage.newsearchUsers(searchReq);
+	}
+	
+	@Override
 	public String deletemessage(Integer thingid){
 		detailmessage.deletemessage(thingid);
 		return "success";

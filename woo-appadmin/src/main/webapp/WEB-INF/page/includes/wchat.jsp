@@ -1125,7 +1125,7 @@ var createContactChatDiv = function(chatUserId) {
 //显示当前选中联系人的聊天窗口div，并将该联系人在联系人列表中背景色置为蓝色
 var showContactChatDiv = function(chatUserId) {
 	var dispalyTitle = '${thingnumber}';//聊天窗口显示当前对话人名称
-	dispalyTitle = "与" + '用户' + "聊天中";
+	dispalyTitle = "与" + '${thingname}' + "聊天中";
 	$("#roomMemberImg").css('display', 'none');
     var title = $('#' + talkToDivId).find('a');
 	title.html(dispalyTitle).attr('title', dispalyTitle);

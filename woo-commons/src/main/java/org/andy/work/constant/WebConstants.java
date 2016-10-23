@@ -12,4 +12,5 @@ public class WebConstants {
 	public final static String ADDITIONAL_CODE = "_additionalCode";
 	
 	public final static String TITLE = "title";
+
 }

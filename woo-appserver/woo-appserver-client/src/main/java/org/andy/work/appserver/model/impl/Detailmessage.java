@@ -16,7 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
-@SuppressWarnings("serial")
+
 @Entity
 @Table(name="detailmessage")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region="org.andy.work.appserver.model.impl.Detailmessage")
@@ -26,7 +26,7 @@ public class Detailmessage implements Serializable,IDetailmessage{
 	private static final long serialVersionUID = 3777655431317415578L;
 	private Integer thingsId;
 	private String name;
-	private String desc;
+	private String thingsdesc;
 	private Double price;
 	private String date;
 	private Double lng;
@@ -58,11 +58,11 @@ public class Detailmessage implements Serializable,IDetailmessage{
 	}
 	
 	@Column(name="thingdesc",length=100, nullable=false, unique=false)
-	public String getthingsDesc() {
-		return desc;
+	public String getThingsDesc() {
+		return thingsdesc;
 	}
-	public void setthingsDesc(String desc) {
-		this.desc = desc;
+	public void setThingsDesc(String thingdesc) {
+		this.thingsdesc = thingdesc;
 	}
 	
 	@Column(name="price",scale=2,nullable=false,unique=false)

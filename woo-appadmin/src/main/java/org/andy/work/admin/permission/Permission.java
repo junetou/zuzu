@@ -15,15 +15,16 @@ public enum Permission {
 	
 	//物品操作
 	ADDTHINGS("ADDTHINGS","things/showaddview",MenuType.THINGS_MENU,"",new String[]{OperationType.ADD}),
-	EDITTHINGS("EDITTHINGS","things/edit",MenuType.THINGS_MENU,"",new String[]{OperationType.EDIT}),
+	EDITTHINGS("EDITTHINGS","things/editthings",MenuType.THINGS_MENU,"",new String[]{OperationType.EDIT}),
 	
 	//需求操作
-	ADDNEEDS("ADDNEEDS","needs/add",MenuType.NEEDS_MENU,"",new String[]{OperationType.ADD}),
-	EDITNEEDS("EDITNEEDS","needs/edit",MenuType.NEEDS_MENU,"",new String[]{OperationType.EDIT}),
+	ADDNEEDS("ADDNEEDS","needs/showaddview",MenuType.NEEDS_MENU,"",new String[]{OperationType.ADD}),
+	EDITNEEDS("EDITNEEDS","needs/editthings",MenuType.NEEDS_MENU,"",new String[]{OperationType.EDIT}),
 	
 	//交易操作
-	THINGSTRADE("THINGSTRADE","trade/thingstrade",MenuType.TRADE_MENU,"",new String[]{OperationType.VIEW}),
-	NEEDSTRADE("NEEDSTRADE","trade/needstrade",MenuType.TRADE_MENU,"",new String[]{OperationType.VIEW}),
+	NEEDSTRADE("NEEDSTRADE","trade/need",MenuType.TRADE_MENU,"",new String[]{OperationType.VIEW}),
+	THINGSTRADE("THINGSTRADE","trade/borrow",MenuType.TRADE_MENU,"",new String[]{OperationType.VIEW}),
+	OTHERTHINGSTRADE("OTHERTHINGSTRADE","trade/sellerensureborrow",MenuType.TRADE_MENU,"",new String[]{OperationType.VIEW}),
 	TRADEING("TRADEING","trade/tradeing",MenuType.TRADE_MENU,"",new String[]{OperationType.VIEW});
 	
 	

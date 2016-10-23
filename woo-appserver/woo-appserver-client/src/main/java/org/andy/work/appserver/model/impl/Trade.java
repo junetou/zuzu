@@ -24,7 +24,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Trade  implements Serializable,ITrade{
 
 	private static final long serialVersionUID = 3777655431317415578L;
-	private Integer tradeid;
+	private Integer trade;
 	private Integer thingid;
 	private Integer borrowid;
 	private Integer sellerid;
@@ -38,10 +38,10 @@ public class Trade  implements Serializable,ITrade{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getTrade() {
-		return tradeid;
+		return trade;
 	}
 	public void setTrade(Integer tradeid) {
-		this.tradeid = tradeid;
+		this.trade = tradeid;
 	}
 	
 	@Column(name="thingid")

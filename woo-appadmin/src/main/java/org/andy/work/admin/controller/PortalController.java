@@ -89,6 +89,9 @@ public class PortalController {
 			menus.add(menu);
 		}
 		request.setAttribute("userid",userid.getId());
+		request.setAttribute("name",userid.getDisplayName());
+		request.setAttribute("picture", userid.getPicture());
+		request.setAttribute("number", userid.getChatnumber());
 		model.addObject("menus", menus).setViewName("tiles/mains");
 		return model;
 	}
@@ -139,6 +142,9 @@ public class PortalController {
 		}
 		
 		request.setAttribute("userid",userid.getId());
+		request.setAttribute("name",userid.getDisplayName());
+		request.setAttribute("picture", userid.getPicture());
+		request.setAttribute("number", userid.getChatnumber());
 		model.addObject("menus", menus).setViewName("tiles/main");
 		return model;
 	}

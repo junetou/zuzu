@@ -46,7 +46,7 @@
 
 <body>
 
-<div class="mainContainer">
+<div class="mainContainer" >
 	<tiles:insertAttribute name="content"/>
 </div>
 

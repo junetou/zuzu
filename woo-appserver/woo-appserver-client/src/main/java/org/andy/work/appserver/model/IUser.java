@@ -108,4 +108,8 @@ public interface IUser {
 	
 	String getPicture();
 	
+	void setChatnumber(Integer chatnumber);
+	
+	Integer getChatnumber();
+	
 }

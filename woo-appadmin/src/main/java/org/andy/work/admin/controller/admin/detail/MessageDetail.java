@@ -10,6 +10,34 @@ public class MessageDetail {
 	private String thingskind;
 	public Integer thingsoveranalyzed;
 	public String thingspicturename;
+	public String onepicture;
+	public String twopicture;
+	public String threepicture;
+	public String username;
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getOnepicture() {
+		return onepicture;
+	}
+	public void setOnepicture(String onepicture) {
+		this.onepicture = onepicture;
+	}
+	public String getTwopicture() {
+		return twopicture;
+	}
+	public void setTwopicture(String twopicture) {
+		this.twopicture = twopicture;
+	}
+	public String getThreepicture() {
+		return threepicture;
+	}
+	public void setThreepicture(String threepicture) {
+		this.threepicture = threepicture;
+	}
 	public String getThingspicturename() {
 		return thingspicturename;
 	}

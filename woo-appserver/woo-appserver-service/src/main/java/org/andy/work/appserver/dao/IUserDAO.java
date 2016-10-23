@@ -28,4 +28,5 @@ public interface IUserDAO extends IGenericDAO {
 
 	boolean hasusrname(String usrname);
 	
+	
 }

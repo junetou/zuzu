@@ -37,6 +37,9 @@ public class Need implements Serializable,INeed{
 	private Integer number;
 	private String phone;
     private Integer overanalyzed;
+    private String onepicture;
+    private String twopicture;
+	private String threepicture;
     
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -135,7 +138,29 @@ public class Need implements Serializable,INeed{
 		this.overanalyzed = overanalyzed;
 	}
     
+	@Column(name="onepicture")
+    public String getOnepicture() {
+		return onepicture;
+	}
+	public void setOnepicture(String onepicture) {
+		this.onepicture = onepicture;
+	}
 	
+	@Column(name="twopicture")
+	public String getTwopicture() {
+		return twopicture;
+	}
+	public void setTwopicture(String twopicture) {
+		this.twopicture = twopicture;
+	}
 	
+	@Column(name="threepicture")
+	public String getThreepicture() {
+		return threepicture;
+	}
+	public void setThreepicture(String threepicture) {
+		this.threepicture = threepicture;
+	}
+
 
 }

@@ -82,6 +82,27 @@
 		<url-pattern>/timerTaskInitServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>WeChatRequestServlet</servlet-name>
+		<servlet-class>org.andy.work.admin.weixin.CoreServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>WeChatRequestServlet</servlet-name>
+		<url-pattern>/WeChatRequestServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>WeChatAccessServlet</servlet-name>
+		<servlet-class>org.andy.work.admin.weixin.OAuthServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>WeChatAccessServlet</servlet-name>
+		<url-pattern>/WeChatAccessServlet</url-pattern>
+	</servlet-mapping>
+	
+	
 	<!-- Spring 刷新Introspector防止内存泄露 -->  
     <listener>  
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  

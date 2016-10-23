@@ -12,8 +12,12 @@
     <title>地图</title>
 <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+<link href="<woo:url value='/static/bootstrap/css/bootstrap-multiselect.css'/>" rel="stylesheet" type="text/css">
+<link href="<woo:url value='/static/bootstrap/css/metisMenu.min.css'/>" rel="stylesheet">
+<script src="<woo:url value='/static/bootstrap/js/bootstrap.min.js'/>"></script>
 <script src="http://webapi.amap.com/maps?v=1.3&key=3be8235f1cb10f423e1fdbdd0c9be773"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script src="<woo:url value='/static/bootstrap/js/bootstrapValidator.js'/>"></script>
 <style>
     #footer{  
    position: fixed;  
@@ -28,6 +32,38 @@
    background-color:#666;
    width:600px;
 }  
+.a-upload {
+    padding: 4px 10px;
+    height: 30px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
 </style>
 </head>
 
@@ -41,7 +77,7 @@
    </div>
    <woo:permission operationType="THINGS_EDIT" roleType="ROLE_THINGS">
    <div class="panel-body" id="panelbody">
-       <form action="<c:url value='/portal/'/>" method="post" enctype="multipart/form-data" >
+       <form id="defaultForm" action="<c:url value='/portal/things/addthings'/>" method="post" enctype="multipart/form-data" >
         <input type="submit" id="post" name="post" class="btn btn-outline btn-info" onclick="uploadFile()"  value="我要发布"/>	
         <div class="row">
         
@@ -58,7 +94,17 @@
           <label>物品地方</label>
           <input id="addr" type="text" name="addr"   class="form-control"  required />
        </div>
-       	   <div class="form-gourp">
+       </div>
+       <div class="col-md-6">
+       <div class="form-gourp">
+           <label>物品价格<sup>*</sup></label>
+           <input id="price" type="text" name="price"  class="form-control" required />
+        </div>
+         <div class="form-gourp">
+          <label>需求租用时间</label>
+          <input id="date" type="text" name="date"   class="form-control"  required />
+       </div>
+               	   <div class="form-gourp">
 	       <lable>经度(点击地图即可获得)(必填)</lable>
 	       <input id="lng" name="lng" type="text"  class="form-control" readonly="readonly" required />
            </div>
@@ -66,50 +112,39 @@
 	       <lable>经度(点击地图即可获得)(必填)</lable>
 	       <input id="lat" name="lat" type="text"  class="form-control" readonly="readonly" required />
            </div>
-       </div>
-       <div class="col-md-6">
-       <div class="form-gourp">
-           <label>物品价格<sup>*</sup></label>
-           <input id="price" type="text" name="price"  class="form-control" required />
-        </div>
-       <div class="form-gourp">
-          <label>微信</label>
-          <input id="wechat" type="text" name="wechat"  class="form-control" required />
-       </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
           <label>上传图片</label>
-          <input type="file"  name="file0" id="file0"  onchange="getPhotoSize0(this,0)" multiple="true" />
-          <img src="" id="img0"  width="50px" height="50px"  ></th>
+          <input type="file"  name="file0" id="file0" class="a-upload"  onchange="getPhotoSize0(this,0)" />
+          <img src="" id="img0"  width="50px" height="50px" class="img-circle" >
           </div>
          </div>
          <div class="col-md-6">
           <div class="form-group">
           <label>上传图片</label>
-          <input type="file"  name="file1" id="file1" onchange="getPhotoSize1(this,1)" />
-          <img src="" id="img1"  width="50px" height="50px"  ></th> 
+          <input type="file"  name="file1" id="file1" class="a-upload" onchange="getPhotoSize1(this,1)" />
+         <img src="" id="img1"  width="50px" height="50px" class="img-circle"  >
           </div>
          </div>
          <div class="col-md-6">
           <div class="form-group">
           <label>上传图片</label>
-          <input type="file" name="file2" id="file2"   onchange="getPhotoSize2(this,2)" />
-          <img src="" id="img2"  width="50px" height="50px"  ></th>     
+          <input type="file" name="file2" id="file2" class="a-upload"  onchange="getPhotoSize2(this,2)" />    
+	      <img src="" id="img2"  width="50px" height="50px" class="img-circle" >
 	      </div>
          </div>	        
         </div> 
-
        </form>        
    </div>
    </woo:permission>
      <div id="container"></div>
       <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-warning" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;"><a href="<c:url value='/portal/map/showmap'/>" ><b><i class="glyphicon glyphicon-gift">地图</i></b></a></li>
-	                   <li class="btn btn-success" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/list/showlist'/>"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
-                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/person'/>"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
-        </ul>
+	                    <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;"><a href="<c:url value='/portal/map/showmap'/>" style="color:#000000" ><i class="glyphicon glyphicon-gift">地图</i></a></li>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/list/showlist'/>" style="color:#000000"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
+                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/person'/>" style="color:#000000"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
+	                       </ul>
   </div>
 </div>
 
@@ -132,6 +167,7 @@ map.plugin(["AMap.Geolocation"],function(){
 geolocation123=new AMap.Geolocation(
 {
 enableHighAccuracy: true,
+showCircle: false,
 timeout: 10000,  
 buttonOffset: new AMap.Pixel(14,130),
 zoomToAccuracy: true,  
@@ -269,9 +305,8 @@ function uploadFile(){
 	      }
 	      
 	      var xhr = new XMLHttpRequest();
-	      xhr.open("POST", "<c:url value='/portal/'/>",true);
+	      xhr.open("POST", "<c:url value='/portal/things/addthings'/>",true);
 	      xhr.send(fd);
-	      alert("bb");
 	    } else {
 	      document.getElementById('uploadForm').submit();   //no html5
 	    }
@@ -282,6 +317,50 @@ var oImg=document.getElementById('container');
 oImg.style.top=document.getElementById("panel").offsetHeight+'px'; 
 var oImg=document.getElementById('footer');
 oImg.style.width='100%'; 
+$('#defaultForm').bootstrapValidator({
+    message: '此值无效',
+    feedbackIcons: {/*输入框不同状态，显示图片的样式*/
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {/*验证*/
+    	lng: {/*键名username和input name值对应*/
+            validators: {
+                notEmpty: {/*非空提示*/
+                    message: '必需输入经度'
+                }
+            }
+        },
+        lat: {
+            validators: {
+                notEmpty: {
+                    message: '必须输入纬度'
+                }
+            }
+        },
+        thingsname: {//thingsname
+            validators: {
+                notEmpty: {
+                    message: '物品名称必须有'
+                }
+            },
+         price: {//thingsname
+                validators: {
+                	regexp: {
+                        regexp: /^[0-9]+$/,
+                        message: '价格只能输入数字'
+                    },
+                    notEmpty: {
+                        message: '价格不能为空'
+                    }
+                }
+     }
+   }
+ }
+});
+
+
 });
 </script>
 

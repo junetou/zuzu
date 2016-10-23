@@ -72,7 +72,8 @@ margin-right: 6px;
    height:33%;
 }
 .gallery li a img {
-			max-width: 90px;
+			width: 50px;
+			height:50px;
 }
 
 </style>
@@ -93,7 +94,7 @@ margin-right: 6px;
            <li>
            <form method="post">
 		  	 <div class="input-group" style=" margin:0;border:0;padding:0;" >
-		  	 <span class="input-group-addon"><img src="<woo:url value="/static/images/4.png"/>" alt="QQ商城焦点图效果下载" id="lis" width="20px;" height="20px;" class="img-circle" /></span>
+		  	 <span class="input-group-addon"><img src="<woo:url value="/static/userpicture/${pic }"/>" alt="QQ商城焦点图效果下载" id="lis" width="20px;" height="20px;" class="img-circle" /></span>
 		  	<input type="text" class="form-control" name="keyWord" id="keyWord" placeholder="Search for..." style="background-color:#FFFFCC"  >
 		  	<span class="input-group-btn">
                 <input type="submit"  class="btn btn-primary"   value="搜索" >
@@ -109,32 +110,40 @@ margin-right: 6px;
     <c:forEach items="${grid.datas }" varStatus="index" var="data">
     <ul class="list-group">
     <li class="list-group-item" style="background-image:url('<woo:url value="/static/images/c.jpg"/>');">
-    <a href="#">
-    <p><span><img alt="" src="<woo:url value="/static/picture/${data.thingspicturename }"/>" class="img-circle" align="buttom;" width="10%" height="10%;" >&nbsp&nbsp&nbsp</span><b>用户名:admin</b><span>
-    <span style="float:right;color:red;">价格：￥${data.thingsprice }</span>
-    </a>   
+    <p><span><img alt="" src="<woo:url value="/static/userpicture/${data.thingspicturename }"/>" class="img-circle" align="buttom;" width="10%" height="10%;" >&nbsp&nbsp&nbsp</span><b>用户名:${data.username }</b><span>
+    <span style="float:right;color:red;">价格：￥${data.thingsprice }</span> 
     <p> 
-    <ul id="auto-loop" class="gallery" >
-              <li data-src="<woo:url value="/static/images/4.png"/>" > 
+    <ul  class="gallery" >
+             <c:if test="${data.onepicture != '' }">
+              <li data-src="<woo:url value="/static/thingspicture/${data.onepicture }"/>" > 
         	  <a href="#">
-              <img src="<woo:url value="/static/images/4.png"/>" alt="" id="lis"  class="img-rounded" />
+              <img src="<woo:url value="/static/thingspicture/${data.onepicture }"/>" alt="" id="lis" width="50px" height="50px"  class="img-rounded" />
               </a>
               </li>
-              <li data-src="<woo:url value="/static/images/2.png"/>"   > 
+              </c:if>
+              <c:if test="${data.twopicture != '' }">
+              <li data-src="<woo:url value="/static/thingspicture/${data.twopicture }"/>"   > 
         	  <a href="#">
-              <img src="<woo:url value="/static/images/4.png"/>" alt="" id="lis"   class="img-rounded" />
+              <img src="<woo:url value="/static/thingspicture/${data.twopicture }"/>" alt="" id="lis" width="50px" height="50px"   class="img-rounded" />
               </a>
               </li>
-              <li data-src="<woo:url value="/static/images/3.png"/>" >  
+              </c:if>
+              <c:if test="${data.threepicture != '' }">
+              <li data-src="<woo:url value="/static/thingspicture/${data.threepicture }"/>" >  
         	  <a href="#">
-              <img src="<woo:url value="/static/images/4.png"/>" alt="" id="lis"  class="img-rounded" />
+              <img src="<woo:url value="/static/thingspicture/${data.threepicture }"/>" alt="" id="lis" width="50px" height="50px"  class="img-rounded" />
               </a> 
               </li>
+              </c:if>
     </ul>
     </br>
     </br>
     </p>
-    <p class="text-primary" style="font-family: Helvetica,Hiragino Sans GB,Microsoft Yahei,微软雅黑, Arial, sans-serif;font-size:12px;">产品名字：${data.thingsname }
+    </br>
+    <p class="text-primary" style="font-family: Helvetica,Hiragino Sans GB,Microsoft Yahei,微软雅黑, Arial, sans-serif;font-size:12px;"> 
+    产品名字：${data.thingsname }
+    </br>
+    最长租借时间(天):${data.thingsdate }
     </br>
               详细信息:${data.thingsdesc }
     </p>
@@ -171,10 +180,9 @@ margin-right: 6px;
    
   <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-warning" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;"><a href="<c:url value='/portal/map/showmap'/>" ><b><i class="glyphicon glyphicon-gift">地图</i></b></a></li>
-	                   <li class="btn btn-success" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/list/showlist'/>"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
-                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/person'/>"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
-        </ul>
+	                    <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;"><a href="<c:url value='/portal/map/showmap'/>" style="color:#000000" ><i class="glyphicon glyphicon-gift">地图</i></a></li>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/list/showlist'/>" style="color:#000000"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
+                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/person'/>" style="color:#000000"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>      </ul>
   </div>
 </div>
 

@@ -77,14 +77,14 @@ public class PersonController {
 		String userid=request.getParameter("userid");
 		IUser user=this.userHelper.getUserById(Integer.valueOf(userid));
 		String username=userDetails.getUsername();
-		String picturename=new String(user.getPicture());
+		String picturename=user.getPicture();
 		if(!file0.isEmpty()){
 			String pricture0=file0.getOriginalFilename();
 			String suffix=StringUtils.substringAfterLast(pricture0, ".");
-			String pricturepath="H:\\new\\staticResources\\static\\userpicture\\userpicture";
+			String pricturepath="C:\\Program Files\\staticResources\\static\\userpicture\\userpicture";
 			File upload0=new File(pricturepath+username+"1"+"."+suffix);
 			file0.transferTo(upload0);	
-			picturename=username+"."+suffix;
+			picturename="userpicture"+username+"1"+"."+suffix;
 		}
 		String name=request.getParameter("username");
 		String email=request.getParameter("email");
@@ -105,13 +105,20 @@ public class PersonController {
 	    return model;
 	}
 	
+	@RequestMapping(value="/direction")
+	@ResponseBody
+	@AuthOperation(roleType=RoleType.THINGS, operationType=AuthOperationConfiguration.THINGS_EDIT)
+	public ModelAndView Direction(ModelAndView model) {
+		
+		model.setViewName("tiles/direction");
+		return model;
+	}
+	
 	@RequestMapping(value="resetpass")
 	@ResponseBody
 	@AuthOperation(roleType=RoleType.THINGS, operationType=AuthOperationConfiguration.THINGS_EDIT)
 	public AjaxResponse updatePassword(@RequestParam Integer userId, @RequestParam String password) {
-		System.out.println("b");
 		if (RegularExpressUtil.isCorrectPassword(password, 8, 16)) {
-			System.out.println("a");
 			IUser user = this.userHelper.getUserById(userId);
 			String encpwd = DigestUtils.md5Hex(password);
 			user.setPassword(encpwd);

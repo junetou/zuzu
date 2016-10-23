@@ -121,6 +121,78 @@ public class DetailmessageDAO extends GenericDAO implements IDetailmessageDAO {
 		return searchResp;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public SearchResponse<IDetailmessage> newsearchUsers(SearchRequest<AcctUserSearchCriteria> searchReq){
+		SearchResponse<IDetailmessage> searchResp = new SearchResponse<IDetailmessage>();
+		AcctUserSearchCriteria criteria = searchReq.getCriteria();
+		PagingManagement pgm = searchReq.getPgm();
+		QueryHelper queryHelper = QueryHelper.getInstance();
+		StringBuffer whereHql = new  StringBuffer(" where 1=1 ");
+		StringBuffer hql = new StringBuffer("select count(u.thingsId) from Detailmessage u where 1=1 and u.overanalyzed = 1 ");
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		queryHelper.setToQuery(query, null);
+		
+		Long count = (Long) query.uniqueResult();
+		searchResp.setTotalRecords(count);
+		if (count > 0) {
+    		if(StringUtil.hasValue(criteria.getKeyWord())){
+    		String judgment=criteria.getKeyWord();
+    		Pattern pattern=Pattern.compile("^[0-9]+([.]{0,1}[0-9]+){0,1}$");
+    		  if(!pattern.matcher(judgment).matches())
+    		  {
+			  hql=new StringBuffer("from Detailmessage u where 1=1 and u.name = :name and u.overanalyzed = :overanalyzed  ");
+	  		  queryHelper.addParameter("name", criteria.getKeyWord());
+              queryHelper.addParameter("overanalyzed", 1);
+	  		  query = session.createQuery(hql.toString());
+		      queryHelper.setToQuery(query, pgm);
+			  int counts=query.list().size();
+			  count=(long)counts;
+			  searchResp.setTotalRecords(count);
+			  List<IDetailmessage> list = query.list();
+			  searchResp.setResults(list);
+    		  }
+    		  else if(!judgment.matches("^[0-9]+$")){
+    		  hql=new StringBuffer("from Detailmessage u where 1=1 and u.price = :price and u.overanalyzed = :overanalyzed ");
+    		  Double it=Double.valueOf(criteria.getKeyWord());
+    	  	  queryHelper.addParameter("price", it);
+    	  	  queryHelper.addParameter("overanalyzed", 1);
+  			  query = session.createQuery(hql.toString());
+  			  queryHelper.setToQuery(query, pgm);
+  			  int counts=query.list().size();
+		      count=(long)counts;
+		      searchResp.setTotalRecords(count);
+			  List<IDetailmessage> list = query.list();
+			  searchResp.setResults(list);
+    		  }
+    		  else{
+    		  hql=new StringBuffer("from Detailmessage u where 1=1 and u.date = :date and u.overanalyzed = :overanalyzed ");
+        	  queryHelper.addParameter("date", criteria.getKeyWord());
+        	  queryHelper.addParameter("overanalyzed", 1);
+  			  query = session.createQuery(hql.toString());
+  			  queryHelper.setToQuery(query, pgm);
+  			  int counts=query.list().size();
+			  count=(long)counts;
+			  searchResp.setTotalRecords(count);	
+			  List<IDetailmessage> list = query.list();
+			  searchResp.setResults(list);
+    		  }
+	  		} 
+		    else{
+		    hql = new StringBuffer("from Detailmessage u where 1=1 and u.overanalyzed = :overanalyzed order by u.thingsId desc");
+		    queryHelper.addParameter("overanalyzed", 1);
+		  	query = session.createQuery(hql.toString());
+		    queryHelper.setToQuery(query, pgm);
+			List<IDetailmessage> list = query.list();
+			searchResp.setResults(list);
+		    }	
+		}
+		
+		return searchResp;
+	}
+	
+	
 	@Override
 	public int checkcount(){
 		String hql="select count(*) from Detailmessage";

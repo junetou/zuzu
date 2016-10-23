@@ -4,18 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.andy.work.admin.auth.AuthOperation;
 import org.andy.work.admin.controller.admin.detail.MapDetail;
+import org.andy.work.admin.helper.UserHelper;
 import org.andy.work.admin.permission.AuthOperationConfiguration;
 import org.andy.work.admin.permission.RoleType;
+import org.andy.work.admin.security.AdminUserDetails;
 import org.andy.work.appserver.model.IComment;
 import org.andy.work.appserver.model.IDetailmessage;
 import org.andy.work.appserver.model.INeed;
+import org.andy.work.appserver.model.IUser;
 import org.andy.work.appserver.model.impl.Comment;
 import org.andy.work.appserver.service.ICommentMain;
 import org.andy.work.appserver.service.IDetailmessageMain;
 import org.andy.work.appserver.service.INeedMain;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,12 +40,17 @@ public class MapController {
 	@Resource
 	private INeedMain iNeedMain; 
 	
+	@Resource
+	private UserHelper userHelper;
+	
 	@RequestMapping(value="/showmap")
 	@ResponseBody 
 	@AuthOperation(roleType=RoleType.THINGS, operationType=AuthOperationConfiguration.THINGS_VIEW)
-	public ModelAndView Map(ModelAndView model){
+	public ModelAndView Map(HttpServletRequest request,ModelAndView model){
 		
-        int thingscount=this.iDetailMain.checkcount();
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser userid=this.userHelper.findUserByUsername(userDetails.getUsername());
+		int thingscount=this.iDetailMain.checkcount();
         int needscount=this.iNeedMain.checkcount();
         Integer newcountthings=Integer.valueOf(thingscount);
         Integer newcountneeds=Integer.valueOf(needscount);
@@ -51,7 +61,7 @@ public class MapController {
         	MapDetail detail=new MapDetail();
         	detail.setJudge(1);
         	detail.setThingsId(messagethings.getthingsId());
-        	detail.setThingsdesc(messagethings.getthingsDesc());
+        	detail.setThingsdesc(messagethings.getThingsDesc());
         	detail.setThingskind(messagethings.getkind());
         	detail.setThingsname(messagethings.getName());
         	detail.setThingsoveranalyzed(messagethings.getoveranalyzed());
@@ -72,7 +82,7 @@ public class MapController {
         	detail.setThingskind(messagethings.getKind());
         	detail.setThingsname(messagethings.getName());
         	detail.setThingsoveranalyzed(messagethings.getOveranalyzed());
-        	detail.setThingspicturename("");
+        	detail.setThingspicturename(messagethings.getOnepicture());
         	detail.setThingsprice(messagethings.getPrice().toString());
         	detail.setThingsaddr(messagethings.getAddr());
         	detail.setThingsphone(messagethings.getPhone());
@@ -80,6 +90,7 @@ public class MapController {
         	detail.setLng(messagethings.getLng());
         	message.add(detail);
         } 
+        request.setAttribute("picture", userid.getPicture());
 		model.addObject("usemessage",message)
 		     .setViewName("tiles/map");		
 		return model;

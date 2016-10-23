@@ -56,7 +56,7 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public SearchResponse<ITrade> searchseller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+	public SearchResponse<ITrade> searchborrow1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
 		SearchResponse<ITrade> searchResp = new SearchResponse<ITrade>();
 		QueryHelper queryhelper=QueryHelper.getInstance();
 		AcctUserSearchCriteria criteria = searchReq.getCriteria();
@@ -69,10 +69,39 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 		searchResp.setTotalRecords(count);
 	    
 		if(count>0){
+	      hql=new StringBuffer("from Trade u where 1=1 and u.seller = :seller and u.ensure = :ensure and u.assign = :assign ");
+	      queryhelper.addParameter("seller", userid);
+	      queryhelper.addParameter("ensure", 0);
+	      queryhelper.addParameter("assign", 1);
+		  query = session.createQuery(hql.toString());
+		  queryhelper.setToQuery(query, pgm);
+		  List<ITrade> list=query.list();
+		  int counts=query.list().size();
+		  count=(long)counts;
+		  searchResp.setTotalRecords(counts);
+		  searchResp.setResults(list);
+		}
+        return searchResp;	
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public SearchResponse<ITrade> searchseller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		SearchResponse<ITrade> searchResp = new SearchResponse<ITrade>();
+		QueryHelper queryhelper=QueryHelper.getInstance();
+		AcctUserSearchCriteria criteria = searchReq.getCriteria();
+		PagingManagement pgm = searchReq.getPgm();
+		StringBuffer hql = new StringBuffer("select count(u.trade) from Trade u ");
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		queryhelper.setToQuery(query, null);
+		Long count=(Long) query.uniqueResult();
+		searchResp.setTotalRecords(count);    
+		if(count>0){
 	      hql=new StringBuffer("from Trade u where 1=1 and u.seller = :seller and u.assign = :assign and u.ensure = :ensure ");
 	      queryhelper.addParameter("seller", userid);	
-	      queryhelper.addParameter("assign", 1);
-	      queryhelper.addParameter("ensure", 0);
+	      queryhelper.addParameter("assign", 0);
+	      queryhelper.addParameter("ensure", 1);
 		  query = session.createQuery(hql.toString());
 		  queryhelper.setToQuery(query, pgm);
 		  List<ITrade> list=query.list();
@@ -83,6 +112,8 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 		}
         return searchResp;
 	}
+	
+
 	
 	@SuppressWarnings("unchecked")
 	@Override

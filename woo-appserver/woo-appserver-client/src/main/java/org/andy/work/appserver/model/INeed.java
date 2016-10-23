@@ -14,6 +14,9 @@ public interface INeed {
 	public void setOveranalyzed(Integer overanalyzed);
     public void setLng(Double lng);
     public void setLat(Double lat);
+    public void setOnepicture(String onepicture);
+    public void setTwopicture(String twopicture);
+    public void setThreepicture(String threepicture);
     
 	public Integer getNeed();
 	public String getDescs();
@@ -27,7 +30,8 @@ public interface INeed {
 	public Integer getOveranalyzed();
     public Double getLng();
     public Double getLat();
-    
-	
+    public String getOnepicture();
+    public String getTwopicture();
+    public String getThreepicture();
 	
 }

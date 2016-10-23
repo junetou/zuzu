@@ -96,16 +96,16 @@ input[type=checkbox], input[type=radio] {margin:0;}
 <body>
  <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
-	                   <li class="btn btn-warning" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;"><a href="<c:url value='/portal/map/showmap'/>" ><b><i class="glyphicon glyphicon-gift">地图</i></b></a></li>
-	                   <li class="btn btn-success" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/list/showlist'/>"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
-                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%" ><a href="<c:url value='/portal/person'/>"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
-        </ul>
+	                    <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;"><a href="<c:url value='/portal/map/showmap'/>" style="color:#000000" ><i class="glyphicon glyphicon-gift">地图</i></a></li>
+	                   <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/list/showlist'/>" style="color:#000000"><b><i class="glyphicon glyphicon-align-left">列表</i></b></a></li>
+                       <li class="btn btn-info" style="margin:0px;padding: 0px; border: 0px; text-align:left; width:33.3%;border-radius:0px;" ><a href="<c:url value='/portal/person'/>" style="color:#000000"><b><i class="glyphicon glyphicon-cog">个人信息</i></b></a></li>
+	                   </ul>
   </div>
 <div class="navbar navbar-default navbar-fixed-top" id="top" style="background-color:#FFFFCC;"   >
         <ol class="breadcrumb" style="background-color:#FFFFCC;text-align:center;">
            <li>
 		  	 <div class="input-group">
-		  	  <span class="input-group-addon"><img src="<woo:url value="/static/images/4.png"/>" alt="QQ商城焦点图效果下载" id="lis" width="20px;" height="20px;" class="img-circle" /></span>
+		  	  <span class="input-group-addon"><img src="<woo:url value="/static/userpicture/${picture }"/>" alt="个人头像" id="lis" width="20px;" height="20px;" class="img-circle" /></span>
 		  	<input type="text" class="form-control" name="keyWord" id="keyWord" placeholder="Search for..." style="background-color:#FFFFCC"  >
 		  	 <span class="input-group-btn">
                 <input type="button"  class="btn btn-primary"  onclick="javascript:seachMap()" value="搜索" >
@@ -128,7 +128,7 @@ input[type=checkbox], input[type=radio] {margin:0;}
 </div>
 
 <div style="display:none" >
-<form action="<c:url value='/portal/things/mapmessage'/>" method="get" >
+<form action="<c:url value='/portal/needs/mapmessage'/>" method="get" >
 <input id="usrname" type="text" name="usrname" value="1" required >
 <input type="submit" id="postneed" name="postneed" value="get"/>
 </form>
@@ -239,8 +239,8 @@ function addneed(jingdu,weidu,usrid,price,phone,addr,name,picnames){
 	    useidnumber(useid);
 	   //var img='<img src="<woo:url value="/static/picture/newfileName756332784.jpg"/>">'; 
 	    var img1='<img src="<woo:url value="';
-	    var img3='/static/images/';
-	    var img4='5.png';
+	    var img3='/static/needspicture/';
+	    var img4=picnames;
 	    var img5='"/>">';
 	    var img=img1+img3+img4+img5;
 	    var dizhi='地址:';
@@ -293,7 +293,7 @@ function openInfo(lng1,lat1,useid,prices,phones,addrs,name,picnames){
     useidnumber(useid);
    //var img='<img src="<woo:url value="/static/picture/newfileName756332784.jpg"/>">'; 
     var img1='<img src="<woo:url value="';
-    var img3='/static/picture/';
+    var img3='/static/thingspicture/';
     var img4=picnames;
     var img5='"/>">';
     var img=img1+img3+img4+img5;

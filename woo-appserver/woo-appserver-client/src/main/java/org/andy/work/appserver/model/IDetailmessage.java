@@ -6,7 +6,7 @@ public interface IDetailmessage {
 
 	public void setthingsId(Integer thingsId);
 	public void setName(String name);
-	public void setthingsDesc(String desc);
+	public void setThingsDesc(String desc);
 	public void setPrice(Double price);
 	public void setDate(String date);
     public void setthingsLng(Double lng);
@@ -22,7 +22,7 @@ public interface IDetailmessage {
     
     public Integer getthingsId();
     public String getName();
-    public String getthingsDesc();
+    public String getThingsDesc();
     public Double getPrice();
     public String getDate();
     public Double getthingsLng();
