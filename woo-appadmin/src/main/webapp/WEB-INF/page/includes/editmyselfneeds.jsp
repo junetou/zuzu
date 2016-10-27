@@ -7,9 +7,9 @@
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>地图</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+<title>修改信息</title>
 <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
 <script src="http://webapi.amap.com/maps?v=1.3&key=3be8235f1cb10f423e1fdbdd0c9be773"></script>

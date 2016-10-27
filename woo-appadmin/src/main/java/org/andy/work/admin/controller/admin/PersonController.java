@@ -52,8 +52,11 @@ public class PersonController {
 	@AuthOperation(roleType=RoleType.THINGS, operationType=AuthOperationConfiguration.THINGS_EDIT)
 	public ModelAndView show(@PathVariable Integer userId, ModelAndView model,HttpServletRequest request) {
 	
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 		IUser user=this.userHelper.getUserById(userId);
-		
+		if(user!=null){
+		if(use.getId().equals(user.getId())){
 		request.setAttribute("name", user.getDisplayName());
 		request.setAttribute("id",user.getId());
 		request.setAttribute("onepath",user.getExt1());
@@ -62,9 +65,15 @@ public class PersonController {
 		request.setAttribute("wechat", user.getWeixin());
 		request.setAttribute("addr",user.getAddress());
 		request.setAttribute("qq", user.getQqNum());
-		
 		model.setViewName("tiles/includes/updatepersonmessage");
-		
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
 		return model;
 	}
 	

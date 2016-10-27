@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
-<head><title>租一天</title>
+<head><title>用一天</title>
 <style type="text/css">
 #footer{  
    position: fixed;  

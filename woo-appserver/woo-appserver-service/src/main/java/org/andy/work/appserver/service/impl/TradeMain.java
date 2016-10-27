@@ -34,13 +34,29 @@ public class TradeMain  implements ITradeMain {
 	}
 	
 	@Override
+	public SearchResponse<ITrade> searchseller1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		return this.trade.searchseller1(searchReq, userid);
+	}
+	
+	@Override
 	public SearchResponse<ITrade> searchsuccess(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
 		return this.trade.searchsuccess(searchReq, userid);
 	}
 	
+	
 	@Override
 	public SearchResponse<ITrade> searchsuccessSeller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
 		return this.trade.searchsuccessSeller(searchReq, userid);
+	}
+	
+	@Override
+	public Trade searchmyself1(Integer userid,Integer thingid){
+		return this.trade.searchmyself1(userid,thingid);
+	}
+	
+	@Override
+	public Trade searchmyself2(Integer userid,Integer thingid){
+		return this.trade.searchmyself2(userid,thingid);
 	}
 	
 	@Override

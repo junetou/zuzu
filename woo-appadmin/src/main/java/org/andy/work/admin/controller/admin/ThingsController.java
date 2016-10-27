@@ -22,8 +22,10 @@ import org.andy.work.appserver.model.IComment;
 import org.andy.work.appserver.model.IDetailmessage;
 import org.andy.work.appserver.model.IUser;
 import org.andy.work.appserver.model.impl.Detailmessage;
+import org.andy.work.appserver.model.impl.Trade;
 import org.andy.work.appserver.service.ICommentMain;
 import org.andy.work.appserver.service.IDetailmessageMain;
+import org.andy.work.appserver.service.ITradeMain;
 import org.andy.work.criteria.AcctUserSearchCriteria;
 import org.andy.work.paging.GridData;
 import org.andy.work.paging.PagingHelper;
@@ -53,6 +55,8 @@ public class ThingsController {
 	@Resource
 	private IDetailmessageMain message;
 	
+	@Resource
+	private ITradeMain trademain;
 	
 	@RequestMapping(value="/mapmessage")
 	@ResponseBody  
@@ -61,10 +65,13 @@ public class ThingsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
 	String name=request.getParameter("usrname");
 	Integer useid=Integer.valueOf(name);	
 	IDetailmessage things=this.message.getmessage(useid);
+	if(things!=null){
+	Trade trade=this.trademain.searchmyself1(use.getId(), things.getthingsId());
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
     Double thingslng=things.getthingsLat();
@@ -73,6 +80,12 @@ public class ThingsController {
     String thingsname=things.getName();
     IUser user=this.userHelper.getUserById(things.getnumber());
     String usename=user.getUsername();
+    if(trade != null){
+    	request.setAttribute("show", "1");
+    }
+    else{
+    	request.setAttribute("show", "0");
+    }
     request.setAttribute("thingsdesc", thingsdesc);
     request.setAttribute("thingsdate", thingsdate);
     request.setAttribute("thingslng", thingslng);
@@ -86,6 +99,10 @@ public class ThingsController {
     request.setAttribute("thingsid", things.getthingsId());
     request.setAttribute("thingsnumber", usename);
     model.setViewName("tiles/includes/thingsmessage");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -96,8 +113,11 @@ public class ThingsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
 	IDetailmessage things=this.message.getmessage(id);
+	if(things!=null){
+	Trade trade=this.trademain.searchmyself1(use.getId(), things.getthingsId());
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
     Double thingslng=things.getthingsLat();
@@ -106,6 +126,12 @@ public class ThingsController {
     String thingsname=things.getName();
     IUser user=this.userHelper.getUserById(things.getnumber());
     String usename=user.getUsername();
+    if(trade != null){
+    	request.setAttribute("show", "1");
+    }
+    else{
+    	request.setAttribute("show", "0");
+    }
     request.setAttribute("thingsdesc", thingsdesc);
     request.setAttribute("thingsdate", thingsdate);
     request.setAttribute("thingslng", thingslng);
@@ -119,6 +145,10 @@ public class ThingsController {
     request.setAttribute("thingsid", things.getthingsId());
     request.setAttribute("thingsnumber", usename);
     model.setViewName("tiles/includes/myselfmessage");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -129,8 +159,10 @@ public class ThingsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
 	IDetailmessage things=this.message.getmessage(id);
+	if(things != null){
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
     Double thingslng=things.getthingsLat();
@@ -152,6 +184,10 @@ public class ThingsController {
     request.setAttribute("thingsid", things.getthingsId());
     request.setAttribute("thingsnumber", usename);
     model.setViewName("tiles/includes/myselfmessage1");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -312,8 +348,10 @@ public class ThingsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
 	IDetailmessage things=this.message.getmessage(id);
+	if(things.getnumber().equals(use.getId())){
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
     Double thingslng=things.getthingsLng();
@@ -341,6 +379,10 @@ public class ThingsController {
     request.setAttribute("twopicturename",twopicturename);
     request.setAttribute("threepicturename",threepicturename); 
     model.setViewName("tiles/includes/editmyselfthings");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -415,17 +457,24 @@ public class ThingsController {
 	@ResponseBody  
 	@AuthOperation(roleType=RoleType.THINGS, operationType=AuthOperationConfiguration.THINGS_DELETE)
 	public AjaxResponse DeleteThings(@PathVariable Integer id){
-		
+
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 		Detailmessage message=this.message.getmessage(id);
-		message.setoveranalyzed(0);
-		String judge=this.message.updatemessage(message);
-		if(judge.equals("success")){
+		Integer a=use.getId();
+		Integer b=message.getnumber();
+		if(message!=null)
+		{
+		if(a.equals(b)){
+			message.setoveranalyzed(0);
+			this.message.updatemessage(message);
 			return AjaxResponse.success("操作成功");
 		}
-		else{
+//		else{
+//		return AjaxResponse.fail("操作失败");
+//		}
+		}
 		return AjaxResponse.fail("操作失败");
-		}
-		}
-	
+	}
 	
 }

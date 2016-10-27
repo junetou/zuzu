@@ -44,9 +44,10 @@ public class PortalController {
 	}
 	
 	@RequestMapping(value="/portal", method=RequestMethod.GET)
-	public ModelAndView portal(ModelAndView model, HttpServletRequest request,HttpServletResponse response)
+	public void portal(ModelAndView model, HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException{
 		
+		/*
 		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		IUser userid=this.userHelper.findUserByUsername(userDetails.getUsername());
 	
@@ -94,6 +95,10 @@ public class PortalController {
 		request.setAttribute("number", userid.getChatnumber());
 		model.addObject("menus", menus).setViewName("tiles/mains");
 		return model;
+		*/
+		String path=request.getContextPath();
+		response.sendRedirect(path+"/portal/person");
+		
 	}
 	
 	@RequestMapping(value="/portal/person", method=RequestMethod.GET)

@@ -6,7 +6,7 @@
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
 
-<head><title>租一天</title>
+<head><title>用一天</title>
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
@@ -125,7 +125,9 @@ margin-right: 6px;
    <woo:permission operationType="THINGS_VIEW" roleType="ROLE_THINGS">
         <div class="btn-group" role="group" style="margin-bottom:20px;">
 				<a href="#" class="btn btn-outline btn-info" onclick="post()">我要与卖家联系</a>
+				<c:if test="${show == 0 }">
 				<a href="#" class="btn btn-outline btn-info" onclick="tijiao()">我要租借</a>
+				</c:if>
 		</div>
         <div class="col-md-6">
         <div class="form-gourp">

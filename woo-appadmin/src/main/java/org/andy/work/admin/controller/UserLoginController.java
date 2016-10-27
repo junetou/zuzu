@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.andy.work.admin.controller.admin.detail.LoginDetail;
 import org.andy.work.admin.helper.CookieHelper;
 import org.andy.work.admin.helper.UserHelper;
 import org.andy.work.admin.security.HmacPasswordEncoderImpl;
@@ -39,7 +40,9 @@ public class UserLoginController {
 	@Resource 
 	private IUserMaintenanceService usermain;
 	
-	private String user;
+	private String user="";
+	private String usesname="";
+	private String ps="";
 	
 	@RequestMapping(value="/secure/login", method=RequestMethod.GET)
 	private String login(HttpServletRequest request, HttpServletResponse response) {
@@ -56,14 +59,16 @@ public class UserLoginController {
         
 		String code=request.getParameter("code");
 		String scope=request.getParameter("scope");
-
+		
 		
 		if(null!=code && !code.equals("")){
 			OAuthInfo oa=WeixinUtil.getOAuthOpenId(Constants.appId,Constants.appSecret,code);
 			String name=new String("");
 			String pass=new String("");
 			if(oa!=null){
-			if(!findUser(oa.getOpenId())&&oa!=null){
+			String test=oa.getOpenId();
+			IUser users = this.userHelper.findUserByUsername(test);
+			if(users == null){
 				UserInfo info=WeixinUtil.getUserInfo(oa.getAccessToken(), oa.getOpenId());
 				User use=new User();
 				Date date=new Date();
@@ -73,7 +78,7 @@ public class UserLoginController {
 				usrgroup.setName("普通用户");
 				usrgroup.setPermission("THINGS_VIEW,THINGS_EDIT,THINGS_DELETE,NEEDS_VIEW,NEEDS_EDIT,NEEDS_DELETE,TRADE_VIEW,TRADE_EDIT,TRADE_DELETE");
 		        usrgroup.setRole("ROLE_USER,ROLE_THINGS,ROLE_NEEDS,ROLE_TRADE");
-				String password=pw.encodePassword("pos123456", "");
+				String password="d548102de97e35352222caa977ab5a1e";
 				use.setPassword(password);
 				use.setUsername(oa.getOpenId());
 				use.setLocked("N");
@@ -85,21 +90,21 @@ public class UserLoginController {
 				use.setChatnumber(0);
 				this.userHelper.saveUser(use);
 			    name=oa.getOpenId();
-			    this.user=name;
 			    pass=password;
 			}
 			else{
 				IUser user=this.userHelper.findUserByUsername(oa.getOpenId());
 			    name=user.getUsername();
-			    this.user=name;
-			    pass=user.getPassword();
+			    pass="pass1234567";
 			}
+            this.usesname=name;
+            this.ps=pass;
 			request.setAttribute("username", name);
 			request.setAttribute("pass", pass);
 		    }    
 		}
 		else{
-			request.setAttribute("username", "");
+			request.setAttribute("username","");
 			request.setAttribute("pass", "");
 		}
 		
@@ -107,18 +112,5 @@ public class UserLoginController {
 	}
 	
 	
-	public Boolean findUser(String account) {
-		
-		Boolean judge=true;
-		if (this.usermain.hasusrname(account)) {
-			IUser user = this.userHelper.findUserByUsername(account);
-			if (user!=null) {
-				judge=true;
-			} else {
-				judge=false;
-			}
-		} 
-		return judge;
-	}
 	
 }

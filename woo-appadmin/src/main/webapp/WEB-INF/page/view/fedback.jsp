@@ -30,7 +30,7 @@
    width:600px;}
 </style>
 
-<head><title>租一天</title></head>
+<head><title>用一天</title></head>
 
 <script type="text/javascript">
 function change()

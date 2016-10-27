@@ -34,7 +34,7 @@
 <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
 <script src="http://webapi.amap.com/maps?v=1.3&key=3be8235f1cb10f423e1fdbdd0c9be773"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
-<title>租一天</title>
+<title>用一天</title>
 
 </head>
 

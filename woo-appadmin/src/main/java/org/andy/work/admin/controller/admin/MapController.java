@@ -66,6 +66,9 @@ public class MapController {
         	detail.setThingsname(messagethings.getName());
         	detail.setThingsoveranalyzed(messagethings.getoveranalyzed());
         	detail.setThingspicturename(messagethings.getpicname());
+        	if(messagethings.getpicname().equals("")){
+        		detail.setThingspicturename("morenpicture.jpg");
+        	}
         	detail.setThingsprice(messagethings.getPrice().toString());
         	detail.setThingsaddr(messagethings.getaddr());
         	detail.setThingsphone(messagethings.getphone());
@@ -83,6 +86,9 @@ public class MapController {
         	detail.setThingsname(messagethings.getName());
         	detail.setThingsoveranalyzed(messagethings.getOveranalyzed());
         	detail.setThingspicturename(messagethings.getOnepicture());
+        	if(messagethings.getOnepicture().equals("")){
+        		detail.setThingspicturename("morenpicture.jpg");
+        	}
         	detail.setThingsprice(messagethings.getPrice().toString());
         	detail.setThingsaddr(messagethings.getAddr());
         	detail.setThingsphone(messagethings.getPhone());

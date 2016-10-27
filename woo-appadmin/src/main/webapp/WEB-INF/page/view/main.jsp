@@ -9,7 +9,7 @@
 <link rel="shortcut icon" href="<woo:url value='/static/images/favicon.ico'/>" type="image/x-icon" />
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<title>租一天</title> 
+<title>用一天</title> 
 </head>
 
 <style type="text/css">

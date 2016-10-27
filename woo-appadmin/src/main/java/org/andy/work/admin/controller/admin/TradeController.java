@@ -98,11 +98,17 @@ public class TradeController {
 		String usename=userDetails.getUsername();
 		IUser use=this.userhelper.findUserByUsername(usename);
 		GridData<Trade> grid = new GridData<Trade>();
+		GridData<Trade> gridthings = new GridData<Trade>();
+		GridData<Trade> gridneeds = new GridData<Trade>();
 		PagingManagement pgm = PagingHelper.buildPagingManagement(request);
-		SearchResponse<ITrade> searchResp1=this.trademain.searchseller(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
+		SearchResponse<ITrade> searchResp1=this.trademain.searchseller1(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
 		SearchResponse<ITrade> searchResp=this.trademain.searchborrow1(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
-		if (searchResp.getTotalRecords() > 0) {
-			List<Trade> displays = new ArrayList<Trade>();		
+		if (searchResp.getTotalRecords() > 0 || searchResp1.getTotalRecords()>0 ) {
+			List<Trade> displays = new ArrayList<Trade>();	
+			List<Trade> displaythings = new ArrayList<Trade>();	
+			List<Trade> displayneeds = new ArrayList<Trade>();	
+            if(searchResp.getTotalRecords() > 0)
+            {
 			List<ITrade> userGroups = searchResp.getResults();
 			for (int i = 0; i < userGroups.size(); i++) {
 				ITrade user = userGroups.get(i);
@@ -113,10 +119,14 @@ public class TradeController {
 			    display.setTrade(user.getTrade());
 			    display.setAssign(user.getAssign());
 				displays.add(display);
+				displaythings.add(display);
 			}
-			if (searchResp1.getTotalRecords() > 0) {	
-				List<ITrade> userGroupss = searchResp1.getResults();
-				for (int i = 0; i < userGroups.size(); i++) {
+			gridthings.setDatas(displaythings);
+            }
+            if(searchResp1.getTotalRecords() > 0)
+            {
+			List<ITrade> userGroupss = searchResp1.getResults();
+			for (int i = 0; i < userGroupss.size(); i++) {
 					ITrade user = userGroupss.get(i);
 					Trade display = new Trade();
 				    display.setSuccess(user.getSuccess());
@@ -125,13 +135,18 @@ public class TradeController {
 				    display.setTrade(user.getTrade());
 				    display.setAssign(user.getAssign());
 					displays.add(display);
-				}
+					displayneeds.add(display);
 			}
+			gridneeds.setDatas(displayneeds);
+            }
 			grid.setDatas(displays);
 		}
 		pgm.setTotalRecord(searchResp.getTotalRecords()+searchResp1.getTotalRecords());
 		PagingHelper.setPaging(pgm, grid);
-		model.addObject("grid", grid).setViewName("tiles/includes/myselftradeborrow1");
+		model.addObject("grid", grid)
+		     .addObject("gridthings", gridthings)
+		     .addObject("gridneeds", gridneeds)
+		     .setViewName("tiles/includes/myselftradeborrow1");
 		return model;
 	}
 	
@@ -206,8 +221,8 @@ public class TradeController {
 		AdminUserDetails userdetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String thingsid=request.getParameter("thingsid");
 		Integer thingsnumber=Integer.valueOf(thingsid);
-		IDetailmessage message=this.detailmessage.getmessage(thingsnumber);
-	    Integer seller=message.getnumber();
+		INeed message=this.need.Search(thingsnumber);
+	    Integer seller=message.getNumber();
 	    IUser sellername=this.userhelper.getUserById(seller);
 	    IUser chuzuren=this.userhelper.findUserByUsername(userdetails.getUsername());
 		Trade trade=new Trade();
@@ -215,7 +230,7 @@ public class TradeController {
 		trade.setBorrowname(sellername.getDisplayName());
 		trade.setSeller(chuzuren.getId());;
 		trade.setSellername(chuzuren.getDisplayName());
-		trade.setThing(message.getthingsId());
+		trade.setThing(message.getNeed());
 		trade.setGoodsname(message.getName());
 		trade.setAssign(0);
 		trade.setEnsure(1);
@@ -232,19 +247,25 @@ public class TradeController {
 	@ResponseBody
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView BorrowEnsure(@PathVariable Integer groupId,ModelAndView model,HttpServletRequest request,HttpServletResponse response){
+		
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 		Trade trade=this.trademain.getTrade(groupId);
-		Trade newtrade=new Trade();
-		newtrade.setEnsure(1);
-		newtrade.setAssign(trade.getAssign());
-		newtrade.setBorrow(trade.getBorrow());
-		newtrade.setBorrowname(trade.getBorrowname());
-		newtrade.setGoodsname(trade.getGoodsname());
-		newtrade.setSeller(trade.getSeller());
-		newtrade.setSellername(trade.getSellername());
-		newtrade.setSuccess(1);
-		newtrade.setThing(trade.getThing());
-		newtrade.setTrade(trade.getTrade());
-		String judge=this.trademain.updatemessage(newtrade);	
+		if(trade!=null)
+		{
+		if(use.getId().equals(trade.getBorrow()) || use.getId().equals(trade.getSeller()))
+		{
+		trade.setEnsure(1);
+		trade.setAssign(trade.getAssign());
+	    trade.setBorrow(trade.getBorrow());
+		trade.setBorrowname(trade.getBorrowname());
+		trade.setGoodsname(trade.getGoodsname());
+		trade.setSeller(trade.getSeller());
+		trade.setSellername(trade.getSellername());
+		trade.setSuccess(1);
+		trade.setThing(trade.getThing());
+		trade.setTrade(trade.getTrade());
+		String judge=this.trademain.updatemessage(trade);	
 		IDetailmessage mess=this.detailmessage.getmessage(trade.getThing());
 		Detailmessage message=new Detailmessage();
 		message.setaddr(mess.getaddr());
@@ -263,6 +284,14 @@ public class TradeController {
 		this.detailmessage.updatemessage(message);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
 		return model;
 	}
 	
@@ -272,21 +301,35 @@ public class TradeController {
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView BorrowNoEnsure(@PathVariable Integer groupId,ModelAndView model,HttpServletRequest request,HttpServletResponse response){
 		
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 		Trade trade=this.trademain.getTrade(groupId);
+		if(trade!=null)
+		{
+		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
+		{
 		Trade newtrade=new Trade();
-		newtrade.setEnsure(0);
-		newtrade.setAssign(trade.getAssign());
-		newtrade.setBorrow(trade.getBorrow());
-		newtrade.setBorrowname(trade.getBorrowname());
-		newtrade.setGoodsname(trade.getGoodsname());
-		newtrade.setSeller(trade.getSeller());
-		newtrade.setSellername(trade.getSellername());
-		newtrade.setSuccess(3);
-		newtrade.setThing(trade.getThing());
-		newtrade.setTrade(trade.getTrade());
-		String judge=this.trademain.updatemessage(newtrade);
+		trade.setEnsure(0);
+		trade.setAssign(trade.getAssign());
+		trade.setBorrow(trade.getBorrow());
+		trade.setBorrowname(trade.getBorrowname());
+		trade.setGoodsname(trade.getGoodsname());
+		trade.setSeller(trade.getSeller());
+		trade.setSellername(trade.getSellername());
+		trade.setSuccess(3);
+		trade.setThing(trade.getThing());
+		trade.setTrade(trade.getTrade());
+		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
 		return model;
 	}
 	
@@ -295,19 +338,24 @@ public class TradeController {
 	@ResponseBody
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView SellerEnsure(@PathVariable Integer groupId,ModelAndView model,HttpServletRequest request,HttpServletResponse response){
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 		Trade trade=this.trademain.getTrade(groupId);
-		Trade newtrade=new Trade();
-		newtrade.setEnsure(trade.getEnsure());
-		newtrade.setAssign(1);
-		newtrade.setBorrow(trade.getBorrow());
-		newtrade.setBorrowname(trade.getBorrowname());
-		newtrade.setGoodsname(trade.getGoodsname());
-		newtrade.setSeller(trade.getSeller());
-		newtrade.setSellername(trade.getSellername());
-		newtrade.setSuccess(1);
-		newtrade.setThing(trade.getThing());
-		newtrade.setTrade(trade.getTrade());
-		String judge=this.trademain.updatemessage(newtrade);	
+		if(trade!=null)
+		{
+		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
+		{
+		trade.setEnsure(trade.getEnsure());
+		trade.setAssign(1);
+		trade.setBorrow(trade.getBorrow());
+		trade.setBorrowname(trade.getBorrowname());
+		trade.setGoodsname(trade.getGoodsname());
+		trade.setSeller(trade.getSeller());
+		trade.setSellername(trade.getSellername());
+		trade.setSuccess(1);
+		trade.setThing(trade.getThing());
+		trade.setTrade(trade.getTrade());
+		String judge=this.trademain.updatemessage(trade);	
 		IDetailmessage mess=this.detailmessage.getmessage(trade.getThing());
 		Detailmessage message=new Detailmessage();
 		message.setaddr(mess.getaddr());
@@ -326,6 +374,8 @@ public class TradeController {
 		this.detailmessage.updatemessage(message);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
+		}
+		}
 		return model;
 	}
 	
@@ -335,21 +385,34 @@ public class TradeController {
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView SellerNoEnsure(@PathVariable Integer groupId,ModelAndView model,HttpServletRequest request,HttpServletResponse response){
 		
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 		Trade trade=this.trademain.getTrade(groupId);
-		Trade newtrade=new Trade();
-		newtrade.setEnsure(trade.getEnsure());
-		newtrade.setAssign(0);
-		newtrade.setBorrow(trade.getBorrow());
-		newtrade.setBorrowname(trade.getBorrowname());
-		newtrade.setGoodsname(trade.getGoodsname());
-		newtrade.setSeller(trade.getSeller());
-		newtrade.setSellername(trade.getSellername());
-		newtrade.setSuccess(3);
-		newtrade.setThing(trade.getThing());
-		newtrade.setTrade(trade.getTrade());
-		String judge=this.trademain.updatemessage(newtrade);
+		if(trade!=null)
+		{
+		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
+		{
+		trade.setEnsure(trade.getEnsure());
+		trade.setAssign(0);
+		trade.setBorrow(trade.getBorrow());
+		trade.setBorrowname(trade.getBorrowname());
+		trade.setGoodsname(trade.getGoodsname());
+		trade.setSeller(trade.getSeller());
+		trade.setSellername(trade.getSellername());
+		trade.setSuccess(3);
+		trade.setThing(trade.getThing());
+		trade.setTrade(trade.getTrade());
+		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
 		return model;
 	}
 	
@@ -360,21 +423,34 @@ public class TradeController {
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView cancelborrow(@PathVariable Integer tradeid,ModelAndView model,HttpServletRequest request,HttpServletResponse response){
 		
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 		Trade trade=this.trademain.getTrade(tradeid);
-		Trade newtrade=new Trade();
-		newtrade.setAssign(0);
-		newtrade.setEnsure(trade.getEnsure());
-		newtrade.setBorrow(trade.getBorrow());
-		newtrade.setBorrowname(trade.getBorrowname());
-		newtrade.setGoodsname(trade.getGoodsname());
-		newtrade.setSeller(trade.getSeller());
-		newtrade.setSellername(trade.getSellername());
-		newtrade.setSuccess(trade.getSuccess());
-		newtrade.setThing(trade.getThing());
-		newtrade.setTrade(trade.getTrade());
-		String judge=this.trademain.updatemessage(newtrade);
+		if(trade!=null)
+		{
+		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
+		{
+		trade.setAssign(0);
+		trade.setEnsure(trade.getEnsure());
+		trade.setBorrow(trade.getBorrow());
+		trade.setBorrowname(trade.getBorrowname());
+		trade.setGoodsname(trade.getGoodsname());
+		trade.setSeller(trade.getSeller());
+		trade.setSellername(trade.getSellername());
+		trade.setSuccess(trade.getSuccess());
+		trade.setThing(trade.getThing());
+		trade.setTrade(trade.getTrade());
+		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
 		return model;
 	}
 	
@@ -384,21 +460,34 @@ public class TradeController {
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView cancelseller(@PathVariable Integer tradeid,ModelAndView model,HttpServletRequest request,HttpServletResponse response){
 		
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 		Trade trade=this.trademain.getTrade(tradeid);
-		Trade newtrade=new Trade();
-		newtrade.setAssign(trade.getAssign());
-		newtrade.setEnsure(0);
-		newtrade.setBorrow(trade.getBorrow());
-		newtrade.setBorrowname(trade.getBorrowname());
-		newtrade.setGoodsname(trade.getGoodsname());
-		newtrade.setSeller(trade.getSeller());
-		newtrade.setSellername(trade.getSellername());
-		newtrade.setSuccess(trade.getSuccess());
-		newtrade.setThing(trade.getThing());
-		newtrade.setTrade(trade.getTrade());
-		String judge=this.trademain.updatemessage(newtrade);
+		if(trade!=null)
+		{
+		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
+		{
+		trade.setAssign(trade.getAssign());
+		trade.setEnsure(0);
+		trade.setBorrow(trade.getBorrow());
+		trade.setBorrowname(trade.getBorrowname());
+		trade.setGoodsname(trade.getGoodsname());
+		trade.setSeller(trade.getSeller());
+		trade.setSellername(trade.getSellername());
+		trade.setSuccess(trade.getSuccess());
+		trade.setThing(trade.getThing());
+		trade.setTrade(trade.getTrade());
+		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
+		}
+		else{
+			model.setViewName("tiles/filas");
+		}
 		return model;
 	}
 	
@@ -466,12 +555,15 @@ public class TradeController {
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView ThingsGetMessage(@PathVariable Integer thing,ModelAndView model,HttpServletResponse response,HttpServletRequest request)
 	{
-	
+	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 	Trade id=this.trademain.getTrade(thing);
+	if(id!=null){
 	IUser borrow=this.userhelper.getUserById(id.getBorrow());
 	IUser useweixin=this.userhelper.getUserById(id.getSeller());
-	Integer useid=thing;	
-	IDetailmessage things=this.detailmessage.getmessage(useid);
+	if(use.getId().equals(id.getBorrow())||use.getId().equals(id.getSeller()))
+	{
+	IDetailmessage things=this.detailmessage.getmessage(id.getThing());
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
     Double thingslng=things.getthingsLng();
@@ -508,6 +600,14 @@ public class TradeController {
     request.setAttribute("sellerphone", useweixin.getPhone());
     request.setAttribute("sellerpicture", useweixin.getPicture());
     model.setViewName("tiles/includes/tradethings");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	
 	}
@@ -519,11 +619,15 @@ public class TradeController {
 	public ModelAndView NeedGetMessage(@PathVariable Integer thing,ModelAndView model,HttpServletResponse response,HttpServletRequest request)
 	{
 	
+	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 	Trade id=this.trademain.getTrade(thing);
+	if(id!=null){
 	IUser borrow=this.userhelper.getUserById(id.getBorrow());
 	IUser useweixin=this.userhelper.getUserById(id.getSeller());
-	Integer useid=thing;	
-	INeed things=this.need.Search(thing);
+	INeed things=this.need.Search(id.getThing());
+	if(use.getId().equals(borrow.getId())||use.getId().equals(useweixin.getId()))
+	{
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLng();
@@ -560,6 +664,14 @@ public class TradeController {
     request.setAttribute("sellerphone", useweixin.getPhone());
     request.setAttribute("sellerpicture", useweixin.getPicture());
     model.setViewName("tiles/includes/tradeneeds");
+	}
+	else{
+	model.setViewName("tiles/filas");	
+	}
+	}
+	else{
+	model.setViewName("tiles/filas");
+	}
     return model;
 	
 	}
@@ -569,21 +681,34 @@ public class TradeController {
 	@AuthOperation(roleType=RoleType.TRADE, operationType=AuthOperationConfiguration.TRADE_VIEW)
 	public ModelAndView tradesuccess(@PathVariable Integer thing,ModelAndView model,HttpServletResponse response,HttpServletRequest request)
 	{
+	
+	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userhelper.findUserByUsername(userDetails.getUsername());
 	Trade trade=this.trademain.getTrade(thing);
-	Trade newtrade=new Trade();
-	newtrade.setAssign(3);
-	newtrade.setEnsure(3);
-	newtrade.setBorrow(trade.getBorrow());
-	newtrade.setBorrowname(trade.getBorrowname());
-	newtrade.setGoodsname(trade.getGoodsname());
-	newtrade.setSeller(trade.getSeller());
-	newtrade.setSellername(trade.getSellername());
-	newtrade.setSuccess(3);
-	newtrade.setThing(trade.getThing());
-	newtrade.setTrade(trade.getTrade());
-	String judge=this.trademain.updatemessage(newtrade);
+	if(trade!=null)
+	{
+	if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller())){
+	trade.setAssign(3);
+	trade.setEnsure(3);
+	trade.setBorrow(trade.getBorrow());
+	trade.setBorrowname(trade.getBorrowname());
+	trade.setGoodsname(trade.getGoodsname());
+	trade.setSeller(trade.getSeller());
+	trade.setSellername(trade.getSellername());
+	trade.setSuccess(3);
+	trade.setThing(trade.getThing());
+	trade.setTrade(trade.getTrade());
+	String judge=this.trademain.updatemessage(trade);
 	request.setAttribute("judge", judge);
     model.setViewName("tiles/success");
+	}
+	else{
+	model.setViewName("tiles/filas");
+	}
+	}
+	else{
+	model.setViewName("tiles/filas");
+	}
     return model;
 	
 	}
@@ -605,7 +730,6 @@ public class TradeController {
     request.setAttribute("thingslat", thingslat);
     model.setViewName("tiles/includes/positionofmap");
     return model;
-	
 	}
 	
 	

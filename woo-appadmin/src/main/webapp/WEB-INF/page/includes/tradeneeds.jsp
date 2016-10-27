@@ -6,7 +6,7 @@
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
 
-<head><title>租一天</title>
+<head><title>用一天</title>
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#page-wrapper {padding:0;}

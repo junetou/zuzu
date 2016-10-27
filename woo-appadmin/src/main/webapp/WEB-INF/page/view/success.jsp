@@ -19,10 +19,7 @@
    width:600px;
 </style>
 
-<div class="panel panel-default">
-<a href="javascript:history.go(-1)">返回</a>
-<h2><b><i>操作成功</i></b></h2>
-</div>
+<img id="img" src="<woo:url value='/static/images/success.jpg'/>">
 
  <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >
@@ -35,6 +32,9 @@
   <script>
   $(document).ready(function(){
 		var oImg=document.getElementById('footer');
-		oImg.style.width='100%'; 
+		oImg.style.width='100%';
+		var oImg=document.getElementById('img');
+		oImg.style.width='100%';
+		oImg.style.height=document.documentElement.clientHeight+'px';  
 	});
   </script>

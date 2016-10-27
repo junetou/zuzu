@@ -113,6 +113,36 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
         return searchResp;
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public SearchResponse<ITrade> searchseller1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		SearchResponse<ITrade> searchResp = new SearchResponse<ITrade>();
+		QueryHelper queryhelper=QueryHelper.getInstance();
+		AcctUserSearchCriteria criteria = searchReq.getCriteria();
+		PagingManagement pgm = searchReq.getPgm();
+		StringBuffer hql = new StringBuffer("select count(u.trade) from Trade u ");
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		queryhelper.setToQuery(query, null);
+		Long count=(Long) query.uniqueResult();
+		searchResp.setTotalRecords(count);    
+		if(count>0){
+	      hql=new StringBuffer("from Trade u where 1=1 and u.borrow = :borrow and u.assign = :assign and u.ensure = :ensure ");
+	      queryhelper.addParameter("borrow", userid);	
+	      queryhelper.addParameter("assign", 0);
+	      queryhelper.addParameter("ensure", 1);
+		  query = session.createQuery(hql.toString());
+		  queryhelper.setToQuery(query, pgm);
+		  List<ITrade> list=query.list();
+		  int counts=query.list().size();
+		  count=(long)counts;
+		  searchResp.setTotalRecords(counts);
+		  searchResp.setResults(list);
+		}
+        return searchResp;
+	}
+	
 
 	
 	@SuppressWarnings("unchecked")
@@ -170,6 +200,24 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 		}
         return searchResp;	
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Trade searchmyself1(Integer userid,Integer thingsid){
+		String hql="from Trade t where t.borrow=:borrow and t.thing=:thing ";
+		Query query=super.sessionFactory.getCurrentSession().createQuery(hql).setParameter("borrow", userid).setParameter("thing", thingsid);	
+		return (Trade)query.uniqueResult();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Trade searchmyself2(Integer userid,Integer thingsid){
+		String hql="from Trade t where t.seller=:seller and and t.thing= :thing ";
+		Query query=super.sessionFactory.getCurrentSession().createQuery(hql).setParameter("seller", userid).setParameter("thing", thingsid);	
+		return (Trade)query.uniqueResult();
+	}
+	
 	
 	@Override
 	public String updatemessage(Trade trade){

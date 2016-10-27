@@ -7,9 +7,9 @@
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>地图</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+<title>发布需求</title>
 <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
 <link href="<woo:url value='/static/bootstrap/css/bootstrap-multiselect.css'/>" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 <script src="<woo:url value='/static/bootstrap/js/bootstrapValidator.js'/>"></script>
 <style>
-    #footer{  
+#footer{  
    position: fixed;  
    bottom: 0px; /* 关键 */  
    left:0; /* IE下一定要记得 */  
@@ -105,11 +105,11 @@
            <input id="price" type="text" name="price"  class="form-control" required />
         </div>
                	   <div class="form-gourp">
-	       <lable>经度(点击地图即可获得)(必填)</lable>
+	       <lable>经度(点击地图即可获得)<sup>*</sup></lable>
 	       <input id="lng" name="lng" type="text"  class="form-control" readonly="readonly" required />
            </div>
            <div class="form-gourp">
-	       <lable>经度(点击地图即可获得)(必填)</lable>
+	       <lable>经度(点击地图即可获得)<sup>*</sup></lable>
 	       <input id="lat" name="lat" type="text"  class="form-control" readonly="readonly" required />
            </div>
         </div>

@@ -136,6 +136,15 @@ input[type=checkbox], input[type=radio] {margin:0;}
 
 
 <script>
+$(document).ready(function(){
+	var oImg=document.getElementById('top');
+	oImg.style.width='100%';
+	oImg.style.height=document.documentElement.clientHeight/30+'px'; 
+	var oImg=document.getElementById('container');
+	oImg.style.top=document.getElementById("top").offsetHeight+'px';
+	var oImg=document.getElementById('footer');
+	oImg.style.width='100%'; 
+});
 var maker,map=new AMap.Map('container',{resizeEnable:true,
     zoom:8,
     center:[112.498586, 22.239637]});
@@ -381,15 +390,7 @@ function seachMap(){
 	placeSearch.search(mapaddr,function(status,result){});
 	});
 }
-$(document).ready(function(){
-	var oImg=document.getElementById('top');
-	oImg.style.width='100%';
-	oImg.style.height=document.documentElement.clientHeight/30+'px'; 
-	var oImg=document.getElementById('container');
-	oImg.style.top=document.getElementById("top").offsetHeight+'px';
-	var oImg=document.getElementById('footer');
-	oImg.style.width='100%'; 
-});
+
 
 
 </script>

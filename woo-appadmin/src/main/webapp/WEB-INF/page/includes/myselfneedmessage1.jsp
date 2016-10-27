@@ -6,7 +6,7 @@
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
 
-<head><title>租一天</title>
+<head><title>用一天</title>
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
-<head><title>租一天</title>
+<head><title>用一天</title>
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

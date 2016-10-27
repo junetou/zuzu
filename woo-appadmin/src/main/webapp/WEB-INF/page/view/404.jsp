@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<link rel="icon" href="<woo:url value='/static/images/ico.ico'/>" type="image/x-icon">
-	<title>租一天</title>
+	<title>用一天</title>
 	<link href="<woo:url value='/static/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
 	<link href="<woo:url value='/static/bootstrap/css/metisMenu.min.css'/>" rel="stylesheet">
 	<link href="<woo:url value='/static/bootstrap/css/timeline.css'/>" rel="stylesheet">

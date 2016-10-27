@@ -6,7 +6,7 @@
 <%@	taglib uri="/WEB-INF/classes/woo.tld" prefix="woo"%>
 
 
-<head><title>租一天</title>
+<head><title>用一天</title>
 <link href="<woo:url value='/static/css/lightGallery.css'/>" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#page-wrapper {padding:0;}
@@ -123,7 +123,9 @@ margin-right: 6px;
         <div class="row">
         <div class="btn-group" role="group" style="margin-bottom:20px;">
 				<a href="#" class="btn btn-outline btn-info" onclick="post()">我要与卖家联系</a>
+				<c:if test="${show == 0 }">
 				<a href="#" class="btn btn-outline btn-info" onclick="tijiao()">我要租借</a>
+				</c:if>
 		</div>
         <div class="col-md-6">
         <div class="form-gourp">

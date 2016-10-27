@@ -24,8 +24,8 @@
 
 <div id="tex" class="panel panel-default">
 <h1 style="text-align:center;"><b><i>声明</i></b></h1>
-<textarea id="tex1">声明:本网站框架和部分功能不是本人设计，请使用者遵守互联网使用原则，不发布低俗图片内容，本网站不用于商业用途，如有商业用途，请先与本人联系(QQ:756332784),否则本人不担任一切法律责任</textarea>
-<p class="date">2016年9月4日</p>
+<textarea id="tex1">请使用者遵守互联网使用原则，不发布低俗图片和内容，文明用语，不得辱骂其他用户，或伤害其他用户的行为，如发现取消用户登陆资格，情节严重则报公安机关进行处理，本网站不用于商业用途！请交易双方在交易前确认好双方各自责任！如发生利益冲突，本人概不负责！本网站部分功能不是本人设计，如有侵权请为，请立即联系本人！感谢各位用户的配合！QQ:756332784;微信:junetou;</textarea>
+<p class="date">2016年10月24日</p>
 </div>
  <div id="footer" >
         <ul class="nav nav-pills" style="text-align:left;background-color:#FFFFCC;" >

@@ -15,9 +15,15 @@ public interface ITradeDAO extends IGenericDAO {
 	
 	 SearchResponse<ITrade> searchseller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
 	 
+	 SearchResponse<ITrade> searchseller1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
+	 
 	 SearchResponse<ITrade> searchsuccess(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
 	 
 	 SearchResponse<ITrade> searchsuccessSeller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
+	 
+	 Trade searchmyself1(Integer userid,Integer thingid);
+	 
+	 Trade searchmyself2(Integer userid,Integer thingsid);
 	 
 	 String updatemessage(Trade trade);
 	 

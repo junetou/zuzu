@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="woo" uri="/WEB-INF/classes/woo.tld" %>
 
+<head>
 <style>
     #footer{  
    position: fixed;  
@@ -20,7 +21,8 @@
    background-color:#FFFFCC;
 } 
 </style>
-
+<title>用一天</title>
+</head>
 
 <div id="wrapper" style="background-color:#FFFFCC" >
         <div id="top"   style="background-color:#FFFFCC;" >
@@ -50,7 +52,8 @@
 		<th width="25%">操作</th>
 </tr>
 </thead>
-	<c:forEach items="${grid.datas}" var="data" varStatus="index" >
+	<c:forEach items="${gridthings.datas}" var="data" varStatus="index" >
+	    <c:if test="${gridthings.datas != null }">
 		<tr height="80px;">
 		<th>${data.sellername }</th>
 		<th>${data.goodsname }</th>
@@ -67,8 +70,29 @@
 		</woo:permission>
 		</th>
 		</tr>
+	</c:if>
 	</c:forEach>
-	<c:if test="${grid.datas==null }">
+		<c:forEach items="${gridneeds.datas}" var="data" varStatus="index" >
+	    <c:if test="${gridneeds.datas != null }">
+		<tr height="80px;">
+		<th>${data.sellername }</th>
+		<th>${data.goodsname }</th>
+		<th>
+		<woo:permission operationType="TRADE_DELETE" roleType="ROLE_TRADE">
+									<a href="javascript:void(0);" data-id="${data.trade }"  class="btnEdit" data-url="trade/sellerensure">
+									[确认租借]
+									</a>
+		</woo:permission>
+		<woo:permission operationType="TRADE_DELETE" roleType="ROLE_TRADE">
+									<a href="javascript:void(0);" data-id="${data.trade }"  class="btnEdit" data-url="trade/sellernoesure">
+									[取消租借]
+									</a>
+		</woo:permission>
+		</th>
+		</tr>
+	</c:if>
+	</c:forEach>
+	<c:if test="${gridneeds.datas == null && gridthings.datas == null}">
     <tr>
     <th></th>
     <th style="color:red;">暂时没有相关信息！</th>

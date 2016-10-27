@@ -75,7 +75,7 @@
 	<c:if test="${grid.datas==null }">
     <tr>
     <th></th>
-    <th style="color:red;">您暂时没有发布物品！</th>
+    <th style="color:red;">您暂时没有发布需求！</th>
     <th></th>
     </tr>
     </c:if>

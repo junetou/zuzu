@@ -26,6 +26,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">请登录</h3>
                     </div>
+                    <p>测试账号:test</p>
+                    <p>账号密码:aaaa1111</p>
                     <div class="panel-body">
                         <form action="<c:url value='/secure/check'/>" method="post">
                             <fieldset>
@@ -33,7 +35,7 @@
                                 	<input id="usrname" type="text" class="form-control" name="usrname" placeholder="Username" value="${username }" required />
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control" name="password" value="${pass }" placeholder="Password" required>
+                                    <input id="password" type="text" class="form-control" name="password" value="${pass }" placeholder="Password" required>
                                 </div>
                                 <div class="checkbox">
                                 <!--  
@@ -60,13 +62,16 @@
 
 
 <script>
-if($('#usrname').val =='' ){
+var name=$('#usrname').val();
+var passwd=$('#password').val();
+if(name.length == 0 ){
 	alert("请输入账号");
 }
-else if($('#password').val == ''){
+else if(passwd.length == 0){
 	alert("请输入密码");
 }
-else{
-	$('#sub').click();
+else if(name.length >= 10){
+	//$('#sub').click();
 }
+
 </script>

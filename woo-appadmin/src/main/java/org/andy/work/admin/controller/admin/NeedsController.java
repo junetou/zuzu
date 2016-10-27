@@ -71,6 +71,7 @@ public class NeedsController {
 	String name=request.getParameter("usrname");
 	Integer useid=Integer.valueOf(name);	
 	INeed things=this.need.Search(useid);
+	if(things!=null){
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLng();
@@ -92,6 +93,10 @@ public class NeedsController {
     request.setAttribute("onepicture", things.getTwopicture());
     request.setAttribute("twopicture", things.getThreepicture());
     model.setViewName("tiles/includes/needsmessage");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -106,6 +111,7 @@ public class NeedsController {
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	String username=userDetails.getName();
 	Need things=this.need.Search(id);
+	if(things!=null){
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLat();
@@ -127,6 +133,10 @@ public class NeedsController {
     request.setAttribute("thingsid", things.getNeed());
     request.setAttribute("thingsnumber", usename);
     model.setViewName("tiles/includes/myselfneedmessage");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -139,6 +149,7 @@ public class NeedsController {
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	String username=userDetails.getName();
 	Need things=this.need.Search(id);
+	if(things!=null){
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLat();
@@ -160,6 +171,10 @@ public class NeedsController {
     request.setAttribute("thingsid", things.getNeed());
     request.setAttribute("thingsnumber", usename);
     model.setViewName("tiles/includes/myselfneedmessage1");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -326,8 +341,10 @@ public class NeedsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
 	INeed things=this.need.Search(id);
+	if(things.getNumber().equals(use.getId())){
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLat();
@@ -355,6 +372,10 @@ public class NeedsController {
     request.setAttribute("twopicturename",twopicturename);
     request.setAttribute("threepicturename",threepicturename); 
     model.setViewName("tiles/includes/editmyselfneeds");
+	}
+	else{
+		model.setViewName("tiles/filas");
+	}
     return model;
 	}
 	
@@ -430,16 +451,23 @@ public class NeedsController {
 	@AuthOperation(roleType=RoleType.THINGS, operationType=AuthOperationConfiguration.THINGS_DELETE)
 	public AjaxResponse DeleteThings(@PathVariable Integer id){
 		
+		AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 		Need messages=this.need.Search(id);
+		Integer a=use.getId();
+		Integer b=messages.getNumber();
+        if(a.equals(b)){
+		if(messages!=null){
 		messages.setOveranalyzed(0);
 		String judge=this.need.updatemessage(messages);
 		if(judge.equals("success")){
 			return AjaxResponse.success("操作成功");
 		}
-		else{
-		return AjaxResponse.fail("操作失败");
 		}
 		}
+        return AjaxResponse.fail("操作失败");
+        }
+		
 	
 	
 }

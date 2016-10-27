@@ -141,10 +141,11 @@ public class UserDAO extends GenericDAO implements IUserDAO {
 	public boolean hasusrname(String usrname){
 		String hql=" from User t where t.username=:username";
 		Query query=this.sessionFactory.getCurrentSession().createQuery(hql).setParameter("username", usrname);
-		if(query.uniqueResult()!=null)
+		if(query.uniqueResult()==null)
 		{return false;}
 		else
-		{return true;}
+		{
+			return true;}
 	}
 	
 }

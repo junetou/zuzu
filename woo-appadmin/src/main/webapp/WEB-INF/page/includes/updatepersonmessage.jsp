@@ -27,7 +27,7 @@
 
 
 </style>
-<title>租一天</title>
+<title>用一天</title>
 
 <div class="panel panel-default">
    <div class="panel-heading">

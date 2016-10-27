@@ -7,7 +7,7 @@
 <head>	
 <link rel="icon" href="<woo:url value='/static/images/02.ico'/>" type="image/x-icon">
 <link rel="shortcut icon" href="<woo:url value='/static/images/favicon.ico'/>" type="image/x-icon" />
-<title>租一天</title> 
+<title>用一天</title> 
 </head>
 
 <style type="text/css">

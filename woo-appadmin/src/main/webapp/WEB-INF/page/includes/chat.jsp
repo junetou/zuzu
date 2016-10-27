@@ -14,7 +14,7 @@
 <script src="<woo:url value='/static/js/bootstrap.js'/>" ></script>
 <link rel="stylesheet" href="<woo:url value='/static/css/bootstrap.css'/>" />
 <link rel="stylesheet" href="<woo:url value='/static/css/webim.css'/>" />
-<title>租一天</title>
+<title>用一天</title>
 </head>
 
 <style>
