@@ -92,13 +92,13 @@
 			           </c:if>
 			           </c:if>
 		            </c:forEach>
-		            <c:if test="${gridneeds.datas == null && gridthings.datas == null  }">
+		             <c:if test="${gridneeds.datas != null && gridthings.datas != null }">
 		             <tr>
-    <th></th>
-    <th style="color:red;" text-align="left;">暂时没有相关信息！</th>
-    <th></th>
-    </tr>
-    </c:if>
+           <th></th>
+             <th style="color:red;" text-align="left;">暂时没有相关信息！</th>
+              <th></th>
+                   </tr>
+               </c:if>
 		        </tbody>
 		    </table>
 		    

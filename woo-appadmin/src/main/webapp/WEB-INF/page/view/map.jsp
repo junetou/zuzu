@@ -129,7 +129,7 @@ input[type=checkbox], input[type=radio] {margin:0;}
 
 <div style="display:none" >
 <form action="<c:url value='/portal/needs/mapmessage'/>" method="get" >
-<input id="usrname" type="text" name="usrname" value="1" required >
+<input id="usrname1" type="text" name="usrname1" value="1" required >
 <input type="submit" id="postneed" name="postneed" value="get"/>
 </form>
 </div>
@@ -203,7 +203,7 @@ var name='${message.getThingsname()}';
 var picnames='${message.getThingspicturename()}';
 var judge='${message.getThingsoveranalyzed()}';
 if(judge==1){
-addmarker(lng,lat,usrid,price,phone,addr,name,picnames);
+addmarker(lat,lng,usrid,price,phone,addr,name,picnames);
 }
 }
 else{
@@ -245,7 +245,7 @@ function addneed(jingdu,weidu,usrid,price,phone,addr,name,picnames){
 	    var style2='</span>';
 	    var sum=maininformation+style3+namestyle+names;
 	    var content=[];
-	    useidnumber(useid);
+	    useidnumber1(useid);
 	   //var img='<img src="<woo:url value="/static/picture/newfileName756332784.jpg"/>">'; 
 	    var img1='<img src="<woo:url value="';
 	    var img3='/static/needspicture/';
@@ -368,6 +368,9 @@ map.clearInfoWindow();
 
 function useidnumber(usrid){
 	$("#usrname").val(usrid);
+}
+function useidnumber1(usrid){
+	$("#usrname1").val(usrid);
 }
 function post(){
 	$('#post').trigger("click");

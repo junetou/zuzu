@@ -339,24 +339,24 @@ $('#defaultForm').bootstrapValidator({
                 }
             }
         },
+        price: {
+            validators: {
+            	regexp: {
+                    regexp: /^[0-9]*$/,
+                    message: '工号只能输入数字'
+                },
+                notEmpty: {
+                    message: '价格不能为空'
+                }
+       }
+       },
         thingsname: {//thingsname
             validators: {
                 notEmpty: {
                     message: '物品名称必须有'
                 }
-            },
-         price: {//thingsname
-                validators: {
-                	regexp: {
-                        regexp: /^[0-9]+$/,
-                        message: '价格只能输入数字'
-                    },
-                    notEmpty: {
-                        message: '价格不能为空'
-                    }
-                }
-     }
-   }
+            }
+       }
  }
 });
 });

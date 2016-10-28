@@ -21,6 +21,7 @@ import org.andy.work.appserver.model.INeed;
 import org.andy.work.appserver.model.ITrade;
 import org.andy.work.appserver.model.IUser;
 import org.andy.work.appserver.model.impl.Detailmessage;
+import org.andy.work.appserver.model.impl.Need;
 import org.andy.work.appserver.model.impl.Trade;
 import org.andy.work.appserver.service.ICommentMain;
 import org.andy.work.appserver.service.IDetailmessageMain;
@@ -276,6 +277,8 @@ public class TradeController {
 		message.setoveranalyzed(0);
 		message.setphone(mess.getphone());
 		message.setpicname(mess.getpicname());
+		message.setonepicturename(mess.getonepicturename());
+		message.settwopicturename(mess.gettwopicturename());
 		message.setPrice(mess.getPrice());
 		message.setThingsDesc(mess.getThingsDesc());
 		message.setthingsId(mess.getthingsId());
@@ -308,7 +311,6 @@ public class TradeController {
 		{
 		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
 		{
-		Trade newtrade=new Trade();
 		trade.setEnsure(0);
 		trade.setAssign(trade.getAssign());
 		trade.setBorrow(trade.getBorrow());
@@ -356,22 +358,24 @@ public class TradeController {
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
 		String judge=this.trademain.updatemessage(trade);	
-		IDetailmessage mess=this.detailmessage.getmessage(trade.getThing());
-		Detailmessage message=new Detailmessage();
-		message.setaddr(mess.getaddr());
+		INeed mess=this.need.Search(trade.getThing());
+		Need message=new Need();
+		message.setAddr(mess.getAddr());
 		message.setDate(mess.getDate());
-		message.setkind(mess.getkind());
+		message.setKind(mess.getKind());
 		message.setName(mess.getName());
-		message.setnumber(mess.getnumber());
-		message.setoveranalyzed(0);
-		message.setphone(mess.getphone());
-		message.setpicname(mess.getpicname());
+		message.setNumber(mess.getNumber());
+		message.setOveranalyzed(0);
+		message.setPhone(mess.getPhone());
+		message.setOnepicture(mess.getOnepicture());
+		message.setTwopicture(mess.getTwopicture());
+		message.setThreepicture(mess.getThreepicture());
 		message.setPrice(mess.getPrice());
-		message.setThingsDesc(mess.getThingsDesc());
-		message.setthingsId(mess.getthingsId());
-		message.setthingsLat(mess.getthingsLat());
-		message.setthingsLng(mess.getthingsLng());
-		this.detailmessage.updatemessage(message);
+		message.setDescs(mess.getDescs());
+		message.setNeed(mess.getNeed());
+		message.setLat(mess.getLat());
+		message.setLng(mess.getLng());
+		this.need.updatemessage(message);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
 		}

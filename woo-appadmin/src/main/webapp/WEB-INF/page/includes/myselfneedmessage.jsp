@@ -124,7 +124,9 @@ margin-right: 6px;
    <woo:permission operationType="THINGS_VIEW" roleType="ROLE_THINGS">
         <div class="btn-group" role="group" style="margin-bottom:20px;">
 				<a href="#" class="btn btn-outline btn-info" onclick="post()">我要与卖家联系</a>
+				<c:if test="${show==0 }">
 				<a href="#" class="btn btn-outline btn-info" onclick="tijiao()">我要出售</a>
+				</c:if>
 		</div>
         <div class="col-md-6">
         <div class="form-gourp">

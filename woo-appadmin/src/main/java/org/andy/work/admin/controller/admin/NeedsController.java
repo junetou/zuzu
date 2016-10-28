@@ -24,9 +24,11 @@ import org.andy.work.appserver.model.INeed;
 import org.andy.work.appserver.model.IUser;
 import org.andy.work.appserver.model.impl.Detailmessage;
 import org.andy.work.appserver.model.impl.Need;
+import org.andy.work.appserver.model.impl.Trade;
 import org.andy.work.appserver.service.ICommentMain;
 import org.andy.work.appserver.service.IDetailmessageMain;
 import org.andy.work.appserver.service.INeedMain;
+import org.andy.work.appserver.service.ITradeMain;
 import org.andy.work.criteria.AcctUserSearchCriteria;
 import org.andy.work.paging.GridData;
 import org.andy.work.paging.PagingHelper;
@@ -59,6 +61,9 @@ public class NeedsController {
 	@Resource
 	private INeedMain need;
 	
+	@Resource
+	private ITradeMain trademain;
+	
 	//地图转到详细信息
 	@RequestMapping(value="/mapmessage")
 	@ResponseBody  
@@ -67,17 +72,25 @@ public class NeedsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
-	String name=request.getParameter("usrname");
+	String name=request.getParameter("usrname1");
 	Integer useid=Integer.valueOf(name);	
 	INeed things=this.need.Search(useid);
 	if(things!=null){
+	Trade trade=this.trademain.searchmyself2(use.getId(), things.getNeed());
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLng();
     Double thingslat=things.getLat();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
+    if(trade != null){
+    	request.setAttribute("show", "1");
+    }
+    else{
+    	request.setAttribute("show", "0");
+    }
     IUser user=this.userHelper.getUserById(things.getNumber());
     String usename=user.getUsername();
     request.setAttribute("thingsdesc", thingsdesc);
@@ -109,15 +122,23 @@ public class NeedsController {
 	{
 		
 	AdminUserDetails userDetails = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	IUser use=this.userHelper.findUserByUsername(userDetails.getUsername());
 	String username=userDetails.getName();
 	Need things=this.need.Search(id);
 	if(things!=null){
+	Trade trade=this.trademain.searchmyself2(use.getId(), things.getNeed());
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
     Double thingslng=things.getLat();
     Double thingslat=things.getLng();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
+    if(trade != null){
+    	request.setAttribute("show", "1");
+    }
+    else{
+    	request.setAttribute("show", "0");
+    }
     IUser user=this.userHelper.getUserById(things.getNumber());
     String usename=user.getUsername();
     request.setAttribute("thingsdesc", thingsdesc);

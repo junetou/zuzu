@@ -74,7 +74,7 @@ public class ThingsController {
 	Trade trade=this.trademain.searchmyself1(use.getId(), things.getthingsId());
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
-    Double thingslng=things.getthingsLat();
+    Double thingslng=things.getthingsLng();
     Double thingslat=things.getthingsLat();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
@@ -165,7 +165,7 @@ public class ThingsController {
 	if(things != null){
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
-    Double thingslng=things.getthingsLat();
+    Double thingslng=things.getthingsLng();
     Double thingslat=things.getthingsLat();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
