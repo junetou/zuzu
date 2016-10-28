@@ -77,7 +77,7 @@
 	       <input id="lng" name="lng" type="text" value="${thingslng }"   class="form-control"   readonly="readonly" required />
            </div>
            <div class="form-gourp">
-	       <lable>经度(点击地图即可获得)<sup>*</sup></lable>
+	       <lable>纬度(点击地图即可获得)<sup>*</sup></lable>
 	       <input id="lat" name="lat" type="text" value="${thingslat }"  class="form-control"  readonly="readonly" required />
            </div>
         </div>

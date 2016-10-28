@@ -109,7 +109,7 @@
 	       <input id="lng" name="lng" type="text"  class="form-control" readonly="readonly" required />
            </div>
            <div class="form-gourp">
-	       <lable>经度(点击地图即可获得)<sup>*</sup></lable>
+	       <lable>纬度(点击地图即可获得)<sup>*</sup></lable>
 	       <input id="lat" name="lat" type="text"  class="form-control" readonly="readonly" required />
            </div>
         </div>
@@ -359,6 +359,10 @@ $('#defaultForm').bootstrapValidator({
           },
         date: {//thingsname
             validators: {
+            	 regexp: {
+                     regexp: /^[a-zA-Z0-9_\.]+$/,
+                     message: '此值为数字或汉字'
+                 },
                 notEmpty: {
                     message: '此值必须有'
                 }

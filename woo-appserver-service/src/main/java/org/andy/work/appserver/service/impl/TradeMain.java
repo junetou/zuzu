@@ -50,6 +50,18 @@ public class TradeMain  implements ITradeMain {
 	}
 	
 	@Override
+	public SearchResponse<ITrade> searchsuccess1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		return this.trade.searchsuccess1(searchReq, userid);
+	}
+	
+	
+	@Override
+	public SearchResponse<ITrade> searchsuccessSeller1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		return this.trade.searchsuccessSeller1(searchReq, userid);
+	}
+	
+	
+	@Override
 	public Trade searchmyself1(Integer userid,Integer thingid){
 		return this.trade.searchmyself1(userid,thingid);
 	}

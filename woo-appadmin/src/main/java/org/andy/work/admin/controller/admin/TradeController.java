@@ -208,6 +208,7 @@ public class TradeController {
 		trade.setAssign(1);
 		trade.setEnsure(0);
 		trade.setSuccess(0);
+		trade.setThingsorneeds(1);
 		String judge=this.trademain.addmessage(trade);	
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
@@ -236,6 +237,7 @@ public class TradeController {
 		trade.setAssign(0);
 		trade.setEnsure(1);
 		trade.setSuccess(0);
+		trade.setThingsorneeds(0);
 		String judge=this.trademain.addmessage(trade);	
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
@@ -266,6 +268,7 @@ public class TradeController {
 		trade.setSuccess(1);
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
+		trade.setThingsorneeds(trade.getThingsorneeds());
 		String judge=this.trademain.updatemessage(trade);	
 		IDetailmessage mess=this.detailmessage.getmessage(trade.getThing());
 		Detailmessage message=new Detailmessage();
@@ -321,6 +324,7 @@ public class TradeController {
 		trade.setSuccess(3);
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
+		trade.setThingsorneeds(trade.getThingsorneeds());
 		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
@@ -357,6 +361,7 @@ public class TradeController {
 		trade.setSuccess(1);
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
+		trade.setThingsorneeds(trade.getThingsorneeds());
 		String judge=this.trademain.updatemessage(trade);	
 		INeed mess=this.need.Search(trade.getThing());
 		Need message=new Need();
@@ -397,7 +402,7 @@ public class TradeController {
 		if(use.getId().equals(trade.getBorrow())||use.getId().equals(trade.getSeller()))
 		{
 		trade.setEnsure(trade.getEnsure());
-		trade.setAssign(0);
+		trade.setAssign(3);
 		trade.setBorrow(trade.getBorrow());
 		trade.setBorrowname(trade.getBorrowname());
 		trade.setGoodsname(trade.getGoodsname());
@@ -406,6 +411,7 @@ public class TradeController {
 		trade.setSuccess(3);
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
+		trade.setThingsorneeds(trade.getThingsorneeds());
 		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
@@ -444,6 +450,7 @@ public class TradeController {
 		trade.setSuccess(trade.getSuccess());
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
+		trade.setThingsorneeds(trade.getThingsorneeds());
 		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
@@ -481,6 +488,7 @@ public class TradeController {
 		trade.setSuccess(trade.getSuccess());
 		trade.setThing(trade.getThing());
 		trade.setTrade(trade.getTrade());
+		trade.setThingsorneeds(trade.getThingsorneeds());
 		String judge=this.trademain.updatemessage(trade);
 		request.setAttribute("judge", judge);
 		model.setViewName("tiles/success");	
@@ -504,16 +512,23 @@ public class TradeController {
 		String usename=userDetails.getUsername();
 		IUser use=this.userhelper.findUserByUsername(usename);
 		GridData<Trade> grid = new GridData<Trade>();
-		GridData<Trade> gridthings = new GridData<Trade>();
-		GridData<Trade> gridneeds = new GridData<Trade>();
-		PagingManagement pgm = PagingHelper.buildPagingManagement(request);
+		GridData<Trade> gridthings = new GridData<Trade>();//物品的无论租借
+		GridData<Trade> gridneeds = new GridData<Trade>();//需求的无论租借
+		PagingManagement pgm = PagingHelper.buildPagingManagement(request);//总页面
+		//物品
 		SearchResponse<ITrade> searchResp=this.trademain.searchsuccess(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
 		SearchResponse<ITrade> newsearchResp=this.trademain.searchsuccessSeller(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
+		//需求
+		SearchResponse<ITrade> searchResp1=this.trademain.searchsuccess1(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
+		SearchResponse<ITrade> newsearchResp1=this.trademain.searchsuccessSeller1(new SearchRequest<AcctUserSearchCriteria>(search, pgm),use.getId());
 		List<Trade> displays = new ArrayList<Trade>();	
 		List<Trade> displaysthings = new ArrayList<Trade>();
 		List<Trade> displaysneeds = new ArrayList<Trade>();
 		List<ITrade> userGroupsthings = searchResp.getResults();
 		List<ITrade> userGroupsneeds = newsearchResp.getResults();
+		List<ITrade> userGroupsthings1 = searchResp1.getResults();
+		List<ITrade> userGroupsneeds1 = newsearchResp1.getResults();
+		//物品
 		if (searchResp.getTotalRecords() > 0) {
 			for (int i = 0; i < userGroupsthings.size(); i++) {
 				ITrade user = userGroupsthings.get(i);
@@ -538,13 +553,47 @@ public class TradeController {
 			    display.setThing(user.getThing());
 			    display.setTrade(user.getTrade());
 				displays.add(display);
+				displaysthings.add(display);
+			}
+		}
+        //需求
+		if (searchResp1.getTotalRecords() > 0) {
+			for (int i = 0; i < userGroupsthings1.size(); i++) {
+				ITrade user = userGroupsthings1.get(i);
+				Trade display = new Trade();
+			    display.setSuccess(user.getSuccess());
+			    display.setSellername(user.getSellername());
+			    display.setGoodsname(user.getGoodsname());
+			    display.setThing(user.getThing());
+			    display.setTrade(user.getTrade());
+				displays.add(display);
+				displaysneeds.add(display);
+			}
+		}
+        if(newsearchResp1.getTotalRecords()>0)
+		{
+			for (int i = 0; i < userGroupsneeds1.size(); i++) {
+				ITrade user = userGroupsneeds1.get(i);
+				Trade display = new Trade();
+			    display.setSuccess(user.getSuccess());
+			    display.setSellername(user.getSellername());
+			    display.setGoodsname(user.getGoodsname());
+			    display.setThing(user.getThing());
+			    display.setTrade(user.getTrade());
+				displays.add(display);
 				displaysneeds.add(display);
 			}
 		}
 		grid.setDatas(displays);
+		if(displays.size()==0){
+			request.setAttribute("judge", 0);
+		}
+		else{
+			request.setAttribute("judge", 1);
+		}
 		gridthings.setDatas(displaysthings);
 		gridneeds.setDatas(displaysneeds);
-		pgm.setTotalRecord(searchResp.getTotalRecords()+newsearchResp.getTotalRecords());
+		pgm.setTotalRecord(searchResp.getTotalRecords()+newsearchResp.getTotalRecords()+searchResp1.getTotalRecords()+newsearchResp1.getTotalRecords());
 		PagingHelper.setPaging(pgm, grid);
 		model.addObject("gridthings", gridthings)
 		     .addObject("gridneeds", gridneeds)

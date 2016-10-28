@@ -207,8 +207,8 @@ addmarker(lat,lng,usrid,price,phone,addr,name,picnames);
 }
 }
 else{
-	var lat=${message.getLng()};
-	var lng=${message.getLat()};
+	var lat=${message.getLat()};
+	var lng=${message.getLng()};
 	var usrid=${message.getThingsId()};
 	var price=${message.getThingsprice()};
 	var addr='${message.getThingsaddr()}';

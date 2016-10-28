@@ -223,10 +223,10 @@ addmarker(lng,lat);
 function addmarker(jingdu,weidu){
 marker = new AMap.Marker({                           //丅自定义图标
 icon:new AMap.Icon({size:new AMap.Size(40,50),image:"<woo:url value='/static/images/zu.png'/>",imageOffset:new AMap.Pixel(0,0)}),
-position:[weidu,jingdu]
+position:[jingdu,weidu]
 });
 marker.setMap(map);
-map.panTo([weidu,jingdu]);
+map.panTo([jingdu,weidu]);
 }
 
 (function ($) {

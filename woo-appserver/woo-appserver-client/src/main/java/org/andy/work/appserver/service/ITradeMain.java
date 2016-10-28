@@ -20,6 +20,10 @@ public interface ITradeMain {
 	 
 	 SearchResponse<ITrade> searchsuccessSeller(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
 	 
+     SearchResponse<ITrade> searchsuccess1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
+	 
+	 SearchResponse<ITrade> searchsuccessSeller1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid);
+	 
 	 Trade searchmyself1(Integer userid,Integer thingid);
 	 
 	 Trade searchmyself2(Integer userid,Integer thingid);

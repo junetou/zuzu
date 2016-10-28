@@ -152,19 +152,19 @@ margin-right: 6px;
            <input type="text" value="${sellername}"  class="form-control"  />
         </div>
         <div class="form-gourp">
-           <label>供应者用户名</label>
+           <label>供应者手机</label>
            <input type="text" value="${sellerphone}"  class="form-control"  />
         </div>
         <div class="form-gourp">
-           <label>需求名字</label>
+           <label>物品名字</label>
            <input type="text" value="${thingsname}"  class="form-control"  />
         </div>
         <div class="form-gourp">
-          <label>需求价格(￥)</label>
+          <label>物品价格(￥)</label>
           <input  type="text" value="${thingsprice }"  class="form-control" />
        </div> 
        <div class="form-gourp">
-           <label>需求最长租借时间(天)</label>
+           <label>物品最长租借时间(天)</label>
            <input type="text" value="${thingsdate}"  class="form-control"  />
         </div>
         </div>

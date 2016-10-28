@@ -120,8 +120,8 @@ public class ThingsController {
 	Trade trade=this.trademain.searchmyself1(use.getId(), things.getthingsId());
     String thingsdesc=things.getThingsDesc();
     String thingsdate=things.getDate();
-    Double thingslng=things.getthingsLat();
-    Double thingslat=things.getthingsLng();
+    Double thingslng=things.getthingsLng();
+    Double thingslat=things.getthingsLat();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
     IUser user=this.userHelper.getUserById(things.getnumber());
@@ -288,8 +288,8 @@ public class ThingsController {
 		String addr=request.getParameter("addr");
 		String price=request.getParameter("price");
 		String date=request.getParameter("date");
-		Double lng=Double.valueOf(request.getParameter("lat"));
-		Double lat=Double.valueOf(request.getParameter("lng"));
+		Double lng=Double.valueOf(request.getParameter("lng"));
+		Double lat=Double.valueOf(request.getParameter("lat"));
 		Detailmessage message=new Detailmessage();
 		message.setaddr(addr);
 		message.setDate(date);
@@ -440,8 +440,8 @@ public class ThingsController {
 		message.setoveranalyzed(1);
 		message.setphone(user.getPhone());
 		message.setpicname(picturename1);
-		message.setthingsLat(lng);
-		message.setthingsLng(lat);
+		message.setthingsLat(lat);
+		message.setthingsLng(lng);
 		message.setPrice(Double.valueOf(price));
 		message.setonepicturename(picturename2);
 		message.settwopicturename(picturename3);

@@ -34,7 +34,9 @@ public class Trade  implements Serializable,ITrade{
 	private String borrowname;
 	private String sellername;
 	private String goodsname;
+	private Integer thingsorneeds;
 	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getTrade() {
@@ -114,6 +116,14 @@ public class Trade  implements Serializable,ITrade{
 	}
 	public void setGoodsname(String goodsname) {
 		this.goodsname = goodsname;
+	}
+
+	@Column(name="thingsorneeds")
+	public Integer getThingsorneeds() {
+		return thingsorneeds;
+	}
+	public void setThingsorneeds(Integer thingsorneeds) {
+		this.thingsorneeds = thingsorneeds;
 	}
 	
 }

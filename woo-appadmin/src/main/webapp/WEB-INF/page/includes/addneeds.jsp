@@ -342,7 +342,7 @@ $('#defaultForm').bootstrapValidator({
         price: {
             validators: {
             	regexp: {
-                    regexp: /^[0-9]*$/,
+                    regexp: /^[+-]?\d+(\.\d+)?$/,
                     message: '工号只能输入数字'
                 },
                 notEmpty: {
@@ -356,7 +356,18 @@ $('#defaultForm').bootstrapValidator({
                     message: '物品名称必须有'
                 }
             }
-       }
+       },
+       date: {//thingsname
+           validators: {
+        	   regexp: {
+                   regexp: /^[a-zA-Z0-9_\.]+$/,
+                   message: '此值为数字或汉字'
+               },
+               notEmpty: {
+                   message: '此值必须有'
+               }
+           }     
+         }
  }
 });
 });

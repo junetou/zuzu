@@ -129,8 +129,8 @@ public class NeedsController {
 	Trade trade=this.trademain.searchmyself2(use.getId(), things.getNeed());
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
-    Double thingslng=things.getLat();
-    Double thingslat=things.getLng();
+    Double thingslng=things.getLng();
+    Double thingslat=things.getLat();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
     if(trade != null){
@@ -173,8 +173,8 @@ public class NeedsController {
 	if(things!=null){
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
-    Double thingslng=things.getLat();
-    Double thingslat=things.getLng();
+    Double thingslng=things.getLng();
+    Double thingslat=things.getLat();
     Double thingsprice=things.getPrice();
     String thingsname=things.getName();
     IUser user=this.userHelper.getUserById(things.getNumber());
@@ -309,8 +309,8 @@ public class NeedsController {
 		message.setOveranalyzed(1);
 		message.setPhone(user.getPhone());
 		message.setOnepicture(picturename1);
-		message.setLat(lng);
-		message.setLng(lat);
+		message.setLat(lat);
+		message.setLng(lng);
 		message.setPrice(Double.valueOf(price));
 		message.setTwopicture(picturename2);
 		message.setThreepicture(picturename3);
@@ -368,8 +368,8 @@ public class NeedsController {
 	if(things.getNumber().equals(use.getId())){
     String thingsdesc=things.getDescs();
     String thingsdate=things.getDate();
-    Double thingslng=things.getLat();
-    Double thingslat=things.getLng();
+    Double thingslng=things.getLng();
+    Double thingslat=things.getLat();
     Double thingsprice=things.getPrice();
     String thingsaddr=things.getAddr();
     String thingsname=things.getName();
@@ -454,8 +454,8 @@ public class NeedsController {
 		needs.setOveranalyzed(1);
 		needs.setPhone(user.getPhone());
 		needs.setOnepicture(picturename1);
-		needs.setLat(lng);
-		needs.setLng(lat);
+		needs.setLat(lat);
+		needs.setLng(lng);
 		needs.setPrice(Double.valueOf(price));
 		needs.setTwopicture(picturename2);
 		needs.setThreepicture(picturename3);

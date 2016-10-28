@@ -179,14 +179,14 @@ margin-right: 6px;
               </a>
               </li>
               </c:if>
-              <c:if test="${thingstwopicture != null }">
+              <c:if test="${thingstwopicture != '' }">
               <li data-src="<woo:url value="/static/thingspicture/${thingstwopicture }"/>"   > 
         	  <a href="#">
               <img src="<woo:url value="/static/thingspicture/${thingstwopicture }"/>" alt="" id="lis"   class="img-rounded" />
               </a>
               </li>
               </c:if>
-              <c:if test="${thingsthreepicture != null }">
+              <c:if test="${thingsthreepicture != '' }">
               <li data-src="<woo:url value="/static/thingspicture/${thingsthreepicture }"/>" >  
         	  <a href="#">
               <img src="<woo:url value="/static/thingspicture/${thingsthreepicture }"/>" alt="" id="lis"  class="img-rounded" />

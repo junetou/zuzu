@@ -159,9 +159,10 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 		Long count=(Long) query.uniqueResult();
 		searchResp.setTotalRecords(count);	    
 		if(count>0){
-			  hql=new StringBuffer("from Trade u where 1=1 and u.borrow = :borrow and u.success = :success");
+			  hql=new StringBuffer("from Trade u where 1=1 and u.borrow = :borrow and u.success = :success and u.thingsorneeds = :thingsorneeds");
 		      queryhelper.addParameter("borrow", userid);
 		      queryhelper.addParameter("success", 1);
+		      queryhelper.addParameter("thingsorneeds", 1);
 		      query = session.createQuery(hql.toString());
 		  queryhelper.setToQuery(query, pgm);
 		  int counts=query.list().size();
@@ -187,9 +188,10 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 		Long count=(Long) query.uniqueResult();
 		searchResp.setTotalRecords(count);	    
 		if(count>0){
-			  hql=new StringBuffer("from Trade u where 1=1 and u.seller = :seller and u.success = :success");
+			  hql=new StringBuffer("from Trade u where 1=1 and u.seller = :seller and u.success = :success and u.thingsorneeds = :thingsorneeds");
 		      queryhelper.addParameter("seller", userid);
 		      queryhelper.addParameter("success", 1);
+		      queryhelper.addParameter("thingsorneeds", 1);
 		      query = session.createQuery(hql.toString());
 		  queryhelper.setToQuery(query, pgm);
 		  int counts=query.list().size();
@@ -200,6 +202,67 @@ public class TradeDAO  extends GenericDAO implements ITradeDAO {
 		}
         return searchResp;	
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public SearchResponse<ITrade> searchsuccess1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		SearchResponse<ITrade> searchResp = new SearchResponse<ITrade>();
+		QueryHelper queryhelper=QueryHelper.getInstance();
+		AcctUserSearchCriteria criteria = searchReq.getCriteria();
+		PagingManagement pgm = searchReq.getPgm();
+		StringBuffer hql = new StringBuffer("select count(u.trade) from Trade u ");
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		queryhelper.setToQuery(query, null);
+		Long count=(Long) query.uniqueResult();
+		searchResp.setTotalRecords(count);	    
+		if(count>0){
+			  hql=new StringBuffer("from Trade u where 1=1 and u.borrow = :borrow and u.success = :success and u.thingsorneeds = :thingsorneeds");
+		      queryhelper.addParameter("borrow", userid);
+		      queryhelper.addParameter("success", 1);
+		      queryhelper.addParameter("thingsorneeds", 0);
+		      query = session.createQuery(hql.toString());
+		  queryhelper.setToQuery(query, pgm);
+		  int counts=query.list().size();
+	      count=(long)counts;
+		  List<ITrade> list=query.list();
+		  searchResp.setTotalRecords(counts);
+		  searchResp.setResults(list);
+		}
+        return searchResp;	
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public SearchResponse<ITrade> searchsuccessSeller1(SearchRequest<AcctUserSearchCriteria> searchReq,Integer userid){
+		SearchResponse<ITrade> searchResp = new SearchResponse<ITrade>();
+		QueryHelper queryhelper=QueryHelper.getInstance();
+		AcctUserSearchCriteria criteria = searchReq.getCriteria();
+		PagingManagement pgm = searchReq.getPgm();
+		StringBuffer hql = new StringBuffer("select count(u.trade) from Trade u ");
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql.toString());
+		queryhelper.setToQuery(query, null);
+		Long count=(Long) query.uniqueResult();
+		searchResp.setTotalRecords(count);	    
+		if(count>0){
+			  hql=new StringBuffer("from Trade u where 1=1 and u.seller = :seller and u.success = :success and u.thingsorneeds = :thingsorneeds");
+		      queryhelper.addParameter("seller", userid);
+		      queryhelper.addParameter("success", 1);
+		      queryhelper.addParameter("thingsorneeds", 0);
+		      query = session.createQuery(hql.toString());
+		  queryhelper.setToQuery(query, pgm);
+		  int counts=query.list().size();
+	      count=(long)counts;
+		  List<ITrade> list=query.list();
+		  searchResp.setTotalRecords(counts);
+		  searchResp.setResults(list);
+		}
+        return searchResp;	
+	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	@Override

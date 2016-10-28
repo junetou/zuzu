@@ -12,6 +12,7 @@ public interface ITrade {
 	public void setBorrowname(String borrowname);
 	public void setSellername(String sellername);
 	public void setGoodsname(String goodsname);
+	public void setThingsorneeds(Integer thingsorneeds);//1为thing,0为need
 	
 	public Integer getTrade();
 	public Integer getThing();
@@ -23,4 +24,5 @@ public interface ITrade {
 	public String getBorrowname();
 	public String getSellername();
 	public String getGoodsname();
+	public Integer getThingsorneeds();
 }
