@@ -33,7 +33,6 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
  * KEY:518a73d8-1f7f-441a-b644-33e77b49d846
  */
 
-@SuppressWarnings("restriction")
 public class KdApiSearchUtils {
 	
 	//电商ID

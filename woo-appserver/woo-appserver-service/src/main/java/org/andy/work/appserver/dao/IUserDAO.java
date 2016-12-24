@@ -10,9 +10,7 @@ import org.andy.work.paging.SearchResponse;
 
 public interface IUserDAO extends IGenericDAO {
 
-	IUser finUserByusername(String username);
-
-	SearchResponse<IUserGroup> searchSearchResponse(SearchRequest<String> searchReq);
+	IUser findUserByusername(String username);
 
 	List<String> getGroupUsers(Integer groupId);
 
@@ -27,6 +25,5 @@ public interface IUserDAO extends IGenericDAO {
 	boolean isUserGroup(Integer id);
 
 	boolean hasusrname(String usrname);
-	
 	
 }

@@ -19,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  *
  */
 @Entity
-@Table(name="usr_group")
+@Table(name="user_group")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region="org.andy.work.appserver.model.impl.UserGroup")
 public class UserGroup implements Serializable, IUserGroup {
 	/**
@@ -48,7 +48,7 @@ public class UserGroup implements Serializable, IUserGroup {
 	{
 		this.name = name;
 	}
-	@Column(name="r_typ", length=120)
+	@Column(name="role", length=120)
 	public String getRole() {
 		return role;
 	}

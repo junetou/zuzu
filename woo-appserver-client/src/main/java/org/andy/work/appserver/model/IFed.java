@@ -2,14 +2,32 @@ package org.andy.work.appserver.model;
 
 public interface IFed {
 
-	public void setFedid(Integer fedid);
-	public void setThingid(Integer thingid);
-	public void setDesc(String desc);
-	public void setName(String names);
 	
-	public Integer getFedid();
-	public Integer getThingid();
-	public String getDesc();
-	public String getName();
+	Integer getId();
 	
+	void setId(Integer id);
+	
+	String getInfomation();
+	
+	void setInfomation(String infomation);
+	
+	IUser getUserid();
+	
+	void setUserid(IUser userid);
+	
+	Integer getBelong();
+	
+	void setBelong(Integer belong);
+	
+	Integer getProductid();
+	
+	void setProductid(Integer productid);
+	
+	ICompany getCompanyid();
+	
+	void setCompanyid(ICompany companyid);
+	
+    Integer getShalve();
+    
+    void setShalve(Integer shalve);
 }

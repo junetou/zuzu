@@ -1,0 +1,14 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+
+    <!--
+    Subdirectories can be specified below the property e.g. java.io.tmpdir/one
+    -->
+    <diskStore path="java.io.tmpdir"/>
+    
+    <!-- 登录记录缓存 锁定10分钟 -->  
+    <cache name="passwordRetryCache" eternal="false"  
+        timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="false"  
+        statistics="true">  
+    </cache> 
+    
+</ehcache>

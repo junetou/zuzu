@@ -71,10 +71,6 @@ public class UserHelper
 		return this.userMaintenanceService.getGroupUsers(groupId);
 	}
 
-	public SearchResponse<IUserGroup> searchSearchResponse(SearchRequest<String> searchReq) {
-		return this.userMaintenanceService.searchSearchResponse(searchReq);
-	}
-
 	public SearchResponse<IUser> searchUser(SearchRequest<AcctUserSearchCriteria> searchReq) {
 		return this.userMaintenanceService.searchUser(searchReq);
 	}

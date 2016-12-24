@@ -9,7 +9,9 @@ public class HmacPasswordEncoderImpl implements PasswordEncoder {
 
 	@Override
 	public String encodePassword(String rawPass, Object salt) {
-		return DigestUtils.md5Hex(rawPass);
+		String pw=DigestUtils.md5Hex(rawPass);
+		String pw1=DigestUtils.md5Hex(pw);
+		return DigestUtils.md5Hex(pw1);
 	}
 
 	@Override

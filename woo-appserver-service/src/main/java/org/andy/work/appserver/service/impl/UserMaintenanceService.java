@@ -25,7 +25,7 @@ public class UserMaintenanceService implements IUserMaintenanceService {
 	
 	@Override
 	public IUser findUserByUsername(String username) {
-		return this.userDAO.finUserByusername(username);
+		return this.userDAO.findUserByusername(username);
 	}
 	
 	@Override
@@ -37,7 +37,6 @@ public class UserMaintenanceService implements IUserMaintenanceService {
 	@Override
 	public IUser createUser() {
 		IUser user = new User();
-		user.setCreatedDate(new Date());
 		return user;
 	}
 	
@@ -96,12 +95,7 @@ public class UserMaintenanceService implements IUserMaintenanceService {
 	public List<String> getGroupUsers(Integer groupId) {
 		return this.userDAO.getGroupUsers(groupId);
 	}
-
-	@Override
-	public SearchResponse<IUserGroup> searchSearchResponse(SearchRequest<String> searchReq) {
-		return this.userDAO.searchSearchResponse(searchReq);
-	}
-
+	
 	@Override
 	public SearchResponse<IUser> searchUser(SearchRequest<AcctUserSearchCriteria> searchReq) {
 		return this.userDAO.searchUsers(searchReq);

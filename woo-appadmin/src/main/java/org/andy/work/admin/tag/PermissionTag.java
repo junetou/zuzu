@@ -1,11 +1,16 @@
 package org.andy.work.admin.tag;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.andy.work.admin.helper.UserSessionHelper;
 import org.andy.work.admin.security.AdminUserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -19,18 +24,27 @@ public class PermissionTag extends TagSupport {
 	private String roleType;
 	private String operationType;
 	
+	@Autowired
+	private UserSessionHelper userSessionHelper;
+	
+	
+	@Override
 	public int doStartTag() throws JspException {
-		AdminUserDetails detail = (AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		boolean falg = false;
-		if (!this.isAuthoritie(detail.getAuthorities(), roleType)) {
-			falg = true;
-		} else if (!detail.getPermissions().contains(operationType)) {
-			falg = true;
+		if(SecurityContextHolder.getContext().getAuthentication()!=null){
+	     Object detail=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(detail instanceof AdminUserDetails){
+			AdminUserDetails details=(AdminUserDetails)detail;
+			if(this.isAuthoritie(details.getAuthorities(), roleType) && details.getPermissions().contains(operationType) ) {
+			    falg = true;
+		    }
+		}
 		}
 		if (falg) {
-			return SKIP_BODY;
+			return EVAL_BODY_INCLUDE;
 		}
-		return EVAL_BODY_INCLUDE;
+		return SKIP_BODY;
 	}
 	
 	private boolean isAuthoritie(Collection<? extends GrantedAuthority> collection, String operationType) {

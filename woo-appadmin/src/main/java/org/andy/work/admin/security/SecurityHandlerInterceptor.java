@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.andy.work.admin.auth.AuthOperation;
 import org.andy.work.admin.helper.UserSessionHelper;
 import org.andy.work.utils.CommonUtils;
+import org.andy.work.utils.StringUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -35,9 +36,10 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
 			if (request.getHeader("x-requested-with") != null && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){
 				return this.isAjaxOperation(handler, response, request);
 			} else {
-				this.isOperation(handler, response, request);
+				return this.isOperation(handler, response, request);
 			}
 		}
+		
 		return true;
 	}
 
@@ -47,7 +49,8 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
 	 * @param request
 	 * @throws IOException 
 	 */
-	private void isOperation(Object handler, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	private boolean isOperation(Object handler, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		
 		AdminUserDetails detail = this.userSessionHelper.getUserDetails();
 		String path = request.getContextPath();//得到项目路劲
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -55,12 +58,27 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
 		
 		AuthOperation operation = method.getAnnotation(AuthOperation.class);
 		if (operation != null) {
+		  if(userSessionHelper.isUserLogined()){
+		   if(detail!=null){
 			if (!this.isAuthoritie(detail.getAuthorities(), operation.roleType())) {
-				response.sendRedirect(path + "/operation/403");
+				response.sendRedirect(path + "/403");
+				return false;
 			} else if (!detail.getPermissions().contains(operation.operationType())) {
-				response.sendRedirect(path + "/operation/403");
+				response.sendRedirect(path + "/403");
+				return false;
 			}
+		   }
+		   else{
+		    	  response.sendRedirect(path+"/403");
+		    	  return false;
+		      }
+		  }
+		  else{
+			  response.sendRedirect(path + "/403");
+			  return false;
+		  }
 		}
+		return true;
 	}
 	
 	/**
@@ -75,10 +93,12 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
 		AdminUserDetails detail = this.userSessionHelper.getUserDetails();
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		Method method = handlerMethod.getMethod();
+		String path=request.getContextPath();
 		AuthOperation operation = method.getAnnotation(AuthOperation.class);
 		
 		if (operation != null) {
-						
+	      if(!userSessionHelper.isUserLogined()){
+	       if(detail!=null){
 			if (!this.isAuthoritie(detail.getAuthorities(), operation.roleType())) {
 				response.setHeader("sessionstatus", "NoOperationAuthority");//在响应头设置session状态
 				response.getWriter().print(CommonUtils.getMessage("error.no.enough.operation", request));
@@ -86,6 +106,14 @@ public class SecurityHandlerInterceptor extends HandlerInterceptorAdapter {
 				response.setHeader("sessionstatus", "NoOperationAuthority");//在响应头设置session状态
 				response.getWriter().print(CommonUtils.getMessage("error.no.enough.operation", request));
 			}
+	       }
+	       else{
+		    	  response.sendRedirect(path+"/403");
+		      }
+	      }
+	      else{
+	    	  response.sendRedirect(path+"/403");
+	      }
 		}
 		return flag;
 	}

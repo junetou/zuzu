@@ -28,8 +28,4 @@ public class SearchResponse<T> implements Serializable
 	{
 		this.results = results;
 	}
-	@SuppressWarnings("unchecked")
-	public void setResultsObj(List<Object> objs) {
-		this.results = (List<T>) objs;
-	}
 }

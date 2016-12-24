@@ -31,7 +31,6 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.sun.imageio.plugins.jpeg.*;
 
-@SuppressWarnings("restriction")
 public class ImagesUtils {
 	
 	/*

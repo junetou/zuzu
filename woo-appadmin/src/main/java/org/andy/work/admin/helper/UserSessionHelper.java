@@ -21,9 +21,9 @@ public class UserSessionHelper {
 		return user.getUsername();
 	}
 	
-	public String getCurrentUserMobile() {
+	public String getUser_goup() {
 		AdminUserDetails user = this.getUserDetails();
-		return user.getMobile();
+		return user.getUser_group();
 	}
 	
 	public String getCurrentName() {

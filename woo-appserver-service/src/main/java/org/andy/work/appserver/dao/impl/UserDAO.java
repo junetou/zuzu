@@ -1,5 +1,6 @@
 package org.andy.work.appserver.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -8,7 +9,6 @@ import org.andy.work.appserver.dao.obj.QueryHelper;
 import org.andy.work.appserver.model.IUser;
 import org.andy.work.appserver.model.IUserGroup;
 import org.andy.work.criteria.AcctUserSearchCriteria;
-import org.andy.work.paging.BasePaging;
 import org.andy.work.paging.PagingManagement;
 import org.andy.work.paging.SearchRequest;
 import org.andy.work.paging.SearchResponse;
@@ -24,27 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDAO extends GenericDAO implements IUserDAO {
 
 	@Override
-	public IUser finUserByusername(String username) {
-		String hql = "from User u where u.username=:username and u.locked <> 'Y'";
+	public IUser findUserByusername(String username) {
+		String hql = "from User u where  u.username=:username ";
 		Query query = super.sessionFactory.getCurrentSession().createQuery(hql);
 		query.setParameter("username", username);
 		return (IUser) query.uniqueResult();
 	}
 
-	@Override
-	public SearchResponse<IUserGroup> searchSearchResponse(SearchRequest<String> searchReq) {
-		SearchResponse<IUserGroup> searchResp = new SearchResponse<IUserGroup>();
-		String keyword = searchReq.getCriteria();
-		QueryHelper queryHelper = QueryHelper.getInstance();
-		StringBuffer whereHql = new StringBuffer("where 1=1");
-		if (StringUtil.hasValue(keyword)) {
-			whereHql.append(" and w.name = :name");
-			queryHelper.addParameter("name", keyword);
-		}
-		BasePaging paging = new BasePaging(searchReq.getPgm(), whereHql.toString(), "UserGroup", "", searchResp);
-		this.searchPaging(paging, queryHelper);
-		return searchResp;
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -107,12 +93,6 @@ public class UserDAO extends GenericDAO implements IUserDAO {
 	private StringBuffer buildSecureUserHql(AcctUserSearchCriteria criteria, QueryHelper queryHelper) {
 		StringBuffer hql = new StringBuffer();
 		hql.append(" where 1=1");
-	//	hql.append(" where t.id=:id");
-//		if(StringUtil.hasValue(criteria.getKeyWord())) {
-	//	    hql.append(" where t.id=:id");
-		//	hql.append(" and (u.username like :keyword or u.displayName like :keyword or u.staffNum like :keyword or u.depart like :keyword)");
-		//	queryHelper.addParameter("keyword", "%"+criteria.getKeyWord()+"%");
-	//	}
 		return hql;
 	}
 
@@ -141,11 +121,20 @@ public class UserDAO extends GenericDAO implements IUserDAO {
 	public boolean hasusrname(String usrname){
 		String hql=" from User t where t.username=:username";
 		Query query=this.sessionFactory.getCurrentSession().createQuery(hql).setParameter("username", usrname);
-		if(query.uniqueResult()==null)
+		if(query.uniqueResult()!=null)
 		{return false;}
 		else
-		{
-			return true;}
+		{return true;}
+	}
+	
+	@Override
+    public List<IUser> SearchAllUser(){
+		StringBuffer hql=new StringBuffer("from User as u where 1=1");
+		Session session=this.sessionFactory.getCurrentSession();
+		Query query=session.createQuery(hql.toString());
+		List<IUser> user=new ArrayList<IUser>();
+		user=query.list();
+		return user;
 	}
 	
 }

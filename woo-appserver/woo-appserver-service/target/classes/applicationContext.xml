@@ -5,13 +5,24 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" 
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/lang 
+		http://www.springframework.org/schema/lang/spring-lang-4.1.xsd   
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-    <context:component-scan base-package="org.andy.work" />
+
+    <context:annotation-config />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <context:component-scan base-package="org.andy.work" >
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
     
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -23,7 +34,7 @@
     
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName"><value>${jdbc.driverClassName}</value></property>
-		<property name="url"><value>${jdbc.url}</value></property>
+		<property name="url"><value>jdbc:mysql://localhost:3306/test_website?useUnicode=true&amp;characterEncoding=utf-8</value></property>
 		<property name="username"><value>${jdbc.username}</value></property>
 		<property name="password"><value>${jdbc.password}</value></property>
 		<property name="validationQuery"><value>SELECT 1</value></property>
@@ -33,9 +44,33 @@
 		<property name="maxIdle" value="-1" />
 		<property name="maxWait" value="-1" />
     </bean>
+
+    <bean id="dataSourceTwo" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property>
+		<property name="url"><value>jdbc:mysql://localhost:3306/newtest_website?useUnicode=true&amp;characterEncoding=utf-8</value></property>
+		<property name="username"><value>root</value></property>
+		<property name="password"><value>123456</value></property>
+		<property name="validationQuery"><value>SELECT 1</value></property>
+		<property name="initialSize" value="5" /> 
+		<property name="minIdle" value="5" />
+		<property name="maxActive" value="-1" /> 
+		<property name="maxIdle" value="-1" />
+		<property name="maxWait" value="-1" />
+    </bean>
+    
+    <bean id="dataSources" class="org.andy.work.appserver.manager.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="dataSource" value-ref="dataSource" />
+				<entry key="dataSourceTwo" value-ref="dataSourceTwo" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSource" />
+	</bean>
+    
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="dataSources"/>
         <property name="hibernateProperties">
 	        <props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -75,5 +110,33 @@
 	    <property name="sessionFactory" ref="sessionFactory" />  
 	</bean>
 	
+	<aop:config>
+		<aop:pointcut id="serviceMethods" expression="execution(* org.andy.work.appserver.service.*.*(..))" />
+		<aop:advisor advice-ref="txadvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:advice id="txadvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="get*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="find*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="dataSourceInterceptor" class="org.andy.work.appserver.manager.DataSourceInterceptor" />
+	<aop:config>
+		<aop:aspect id="dataSourceAspect" ref="dataSourceInterceptor">
+			<aop:pointcut id="setdataSource" expression="execution(* org.andy.work.admin.controller.one.*.*(..))" />
+			<aop:pointcut id="setdataSourceTwo" expression="execution(* org.andy.work.admin.controller.two.*.*(..))" />
+			<aop:before method="setdataSource" pointcut-ref="setdataSource"/>
+			<aop:before method="setdataSourceTwo" pointcut-ref="setdataSourceTwo"/>
+		</aop:aspect>
+	</aop:config>
+	
+	
 </beans>

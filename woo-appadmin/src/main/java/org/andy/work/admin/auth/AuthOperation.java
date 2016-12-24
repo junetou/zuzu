@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 删除权限
+ * 用户权限
  * @author Administrator
  *
  */

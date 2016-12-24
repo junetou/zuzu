@@ -17,23 +17,24 @@
 	<http pattern="/res/sea-modules/**" security="none"/> -->
     
 	<http>
-	    <intercept-url pattern="/secure/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-	    <intercept-url pattern="/WeChatRequestServlet" access="IS_AUTHENTICATED_ANONYMOUSLY"/>	    
-	    <intercept-url pattern="/WeChatAccessServlet" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-		<intercept-url pattern="/**" access="ROLE_USER"/>
-		<intercept-url pattern="/portal/common/**" access="ROLE_COMMON"/>
-		<intercept-url pattern="/portal/admin/**" access="ROLE_ADMIN"/>
-		<intercept-url pattern="/portal/user/**" access="ROLE_ACCOUNT"/>
-		<intercept-url pattern="/portal/web/**" access="ROLE_WEB"/>
-		<intercept-url pattern="/portal/product/**" access="ROLE_PRODCENTRAL"/>
-		<intercept-url pattern="/portal/order/**" access="ROLE_ORDERCENTRAL"/>
-		<intercept-url pattern="/portal/mark/**" access="ROLE_MARK"/>
-		<intercept-url pattern="/portal/property/**" access="ROLE_PROPERTY"/>
-		<intercept-url pattern="/portal/things/**" access="ROLE_THINGS"/>
-		<intercept-url pattern="/portal/needs/**" access="ROLE_NEEDS"/>
-		<intercept-url pattern="/portal/trade/**" access="ROLE_TRADE"/>
-		
-		
+	    <intercept-url pattern="/secure/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	    <intercept-url pattern="/index" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	    <intercept-url pattern="/ajaxcode" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	    <intercept-url pattern="/commodity" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+	    <intercept-url pattern="/purchase" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/own" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/register/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/sendPhoneCode" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/sendEmailCode" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/checkCode" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/commodity/**" access="ROLE_VIEW"/>
+        <intercept-url pattern="/purchase/**" access="ROLE_VIEW"/>
+        <intercept-url pattern="/own/**" access="ROLE_VIEW"/>
+        <intercept-url pattern="/CoLtd/**" access="ROLE_VIEW"/>
+        <intercept-url pattern="/publish/**" access="ROLE_COMPANY"/>
+        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        
+        		
 		<form-login 
 		    login-page="/secure/login"
 		    default-target-url="/portal"
@@ -44,7 +45,7 @@
 		    password-parameter="password" 
 		    username-parameter="usrname"/>
 		    
-		<logout invalidate-session="true" logout-url="/logout"/>
+		<logout invalidate-session="true" logout-success-url="/index"  logout-url="/logout"/>
 		
 		<session-management session-fixation-protection="newSession">
 		    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>

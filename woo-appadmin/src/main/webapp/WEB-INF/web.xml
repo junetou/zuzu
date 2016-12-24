@@ -25,9 +25,6 @@
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 	
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -56,7 +53,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 		    <param-name>contextConfigLocation</param-name>
-		    <param-value>classpath:spring-mvc.xml</param-value>
+		    <param-value>classpath:admin-MVC.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -67,24 +64,13 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>  
-	  	<servlet-name>spring-mvc</servlet-name>  
-	  	<url-pattern>/login/index</url-pattern>  
-  	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>timerTaskInitServlet</servlet-name>
-		<servlet-class>org.andy.work.admin.servlet.TimerTaskInitServlet</servlet-class>
-		<load-on-startup>10</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>timerTaskInitServlet</servlet-name>
-		<url-pattern>/timerTaskInitServlet</url-pattern>
-	</servlet-mapping>
+       <servlet-name>spring-mvc</servlet-name>  
+       <url-pattern>/index</url-pattern>  
+    </servlet-mapping>	
 	
 	<servlet>
 		<servlet-name>WeChatRequestServlet</servlet-name>
-		<servlet-class>org.andy.work.admin.weixin.CoreServlet</servlet-class>
+		<servlet-class>org.andy.work.weixin.CoreServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -92,16 +78,9 @@
 		<url-pattern>/WeChatRequestServlet</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>WeChatAccessServlet</servlet-name>
-		<servlet-class>org.andy.work.admin.weixin.OAuthServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>WeChatAccessServlet</servlet-name>
-		<url-pattern>/WeChatAccessServlet</url-pattern>
-	</servlet-mapping>
-	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	
 	<!-- Spring 刷新Introspector防止内存泄露 -->  
     <listener>  
@@ -119,17 +98,37 @@
     
     <!-- 默认启动页面 -->
     <welcome-file-list>  
-  		<welcome-file>/index.jsp</welcome-file>  
+  		<welcome-file>index</welcome-file>  
   	</welcome-file-list>
-  	
-  	<error-page>
+    
+    <!-- 
+    <login-config>
+     <auth-method>CLIENT-CERT</auth-method>
+     <realm-name>Client Cert Users-only Area</realm-name>
+    </login-config>
+    <security-constraint>
+     <web-resource-collection >
+     <web-resource-name >SSL</web-resource-name>
+     <url-pattern>/*</url-pattern>
+     </web-resource-collection>
+     <user-data-constraint>
+     <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+     </user-data-constraint>
+    </security-constraint>
+    -->
+    <error-page>
   	   <error-code>404</error-code>
-       <location>/WEB-INF/page/view/404.jsp</location>
+       <location>/WEB-INF/404.jsp</location>
+  	</error-page>
+    
+    <error-page>
+  	   <error-code>403</error-code>
+       <location>/WEB-INF/403.jsp</location>
   	</error-page>
     
     <error-page>
    <exception-type>java.lang.NullPointerException</exception-type>
-   <location>/WEB-INF/page/view/404.jsp</location>
+   <location>/WEB-INF/404.jsp</location>
    </error-page>
     
 </web-app>

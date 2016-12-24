@@ -31,7 +31,7 @@ public class CommonUtils {
 			{
 				wac = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
 			}
-     
+
 			return wac.getMessage(key, args, locale);
 		}
 		catch (Exception ex)
@@ -105,18 +105,6 @@ public class CommonUtils {
 				e.printStackTrace();
 			}
 		}
-		return null;
-	}
-	
-	public static Date parseToDate( int dayNum) {
-		try {
-			Calendar calendar = Calendar.getInstance();
-		  calendar.add(Calendar.DAY_OF_MONTH, + dayNum);
-			return calendar.getTime();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		return null;
 	}
 	

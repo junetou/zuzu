@@ -9,7 +9,7 @@ public class AjaxResponse implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String n;
-	private String r;
+	private String r;//判断
 	private String s;
 	private int code;
 	private String msgs;

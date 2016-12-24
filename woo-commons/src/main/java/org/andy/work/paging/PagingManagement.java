@@ -9,16 +9,19 @@ public class PagingManagement implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = -6167392837563298604L;
-	private long totalRecord;
-	private int currentPageNum = 1; // default is 1
-	private int numberPerPage = 20; // default is 20 per page
-	private int totalPageNum;
+	private long totalRecord;   //设置查询的总数目
+	private int currentPageNum = 1; // 用户现在查看的页数
+	private int numberPerPage = 20; // 最多可以多少条数目才到下页面
+	private int totalPageNum;  //总的页数
 	private String action;
 	
 	public int getCurrentPageNum() {
 		return currentPageNum;
 	}
 
+	/*
+	 * 设计用户当前的页面
+	 */
 	public void setCurrentPageNum(int currentPageNum) {
 		if (currentPageNum < 1)
 		{
@@ -34,6 +37,9 @@ public class PagingManagement implements Serializable
 		return totalPageNum;
 	}
 
+	/*
+	 * 设计查询想总数据。即数据的条数
+	 */
 	public long getTotalRecord() {
 		return totalRecord;
 	}
@@ -51,6 +57,9 @@ public class PagingManagement implements Serializable
 		this.calculateTotalPageNum();
 	}
 	
+	/*
+	 * 设计最大下一页页数
+	 */
 	public int getNumberPerPage() 
 	{
 		return numberPerPage;
@@ -61,6 +70,9 @@ public class PagingManagement implements Serializable
 		this.calculateTotalPageNum();
 	}
 	
+	/*
+	 * 设计总页数
+	 */
 	private void calculateTotalPageNum()
 	{
 		if (this.totalRecord > 0)
@@ -77,6 +89,9 @@ public class PagingManagement implements Serializable
 		}
 	}
 	
+	/*
+	 * 设计下一页的数据开始地方
+	 */
 	public int getFirstResult()
 	{
 		int firstResult = (this.currentPageNum - 1) * this.numberPerPage;

@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.andy.work.appserver.dao.IGenericDAO;
 import org.andy.work.appserver.dao.obj.QueryHelper;
-import org.andy.work.paging.BasePaging;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,28 +50,6 @@ public class GenericDAO implements IGenericDAO {
 		this.sessionFactory = sessionFactory;
 	}
 	
+		
 	
-	public void searchPaging(BasePaging paging, QueryHelper queryHelper) {
-		
-		StringBuffer hql = new StringBuffer("select count(w.id) from ").append(paging.getClassName());
-		hql.append(" w ").append(paging.getWhereHql());
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery(hql.toString());
-		queryHelper.setToQuery(query, null);
-		
-		Long count = (Long) query.uniqueResult();
-		paging.getSearchResponse().setTotalRecords(count);
-		
-		if (count > 0) {
-			hql = new StringBuffer("from ").append(paging.getClassName()).append(" w ");
-			hql.append(paging.getWhereHql()).append(" ").append(paging.getSortMethod());
-			query = session.createQuery(hql.toString());
-			queryHelper.setToQuery(query, paging.getPgm());
-			
-			@SuppressWarnings("unchecked")
-			List<Object> list = query.list();
-			paging.getSearchResponse().setResultsObj(list);
-		}
-		
-	}
 }

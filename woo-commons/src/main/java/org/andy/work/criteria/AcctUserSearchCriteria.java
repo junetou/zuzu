@@ -8,55 +8,27 @@ public class AcctUserSearchCriteria implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3761475495003906908L;
-	private String id;
-	private String title;
-	private String subject;
-	private String description;
-	private Integer comments;
-	private String author;
-	private String keyWork;
+	private String displayName;
+	private Integer group;
+	private String keyWord;
 	
-	public String getId() {
-		return id;
+	public String getDisplayName() {
+		return displayName;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
-	public String getTitle() {
-		return title;
+	public Integer getGroup() {
+		return group;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setGroup(Integer group) {
+		this.group = group;
 	}
-	public String getSubject() {
-		return subject;
+	public String getKeyWord() {
+		return keyWord;
 	}
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public Integer getComments() {
-		return comments;
-	}
-	public void setComments(Integer comments) {
-		this.comments = comments;
-	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-	public void setKeyWork(String keywork){
-		this.keyWork=keywork;
-	}
-	public String getKeyWord(){
-		return this.keyWork;
-	}
-	
+
 }

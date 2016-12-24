@@ -1,16 +1,19 @@
 package org.andy.work.appserver.dao;
 
-import org.andy.work.appserver.model.IFed;
-import org.andy.work.appserver.model.impl.Fed;
-import org.andy.work.criteria.AcctUserSearchCriteria;
-import org.andy.work.paging.SearchRequest;
-import org.andy.work.paging.SearchResponse;
+import java.util.List;
 
-public interface IFedDao extends IGenericDAO {
-      
+import org.andy.work.appserver.model.IFed;
+
+public interface IFedDAO extends IGenericDAO {
+
+	List<IFed> searchFed();
 	
-	SearchResponse<IFed> searchUsers(SearchRequest<AcctUserSearchCriteria> searchReq);
+	List<IFed> searchProFed(Integer id);
 	
-	String addfed(Fed fed);
+	List<IFed> searchPurFed(Integer id);
+	
+	void updateFed(IFed fed);
+	
+	void addFed(IFed fed);
 	
 }

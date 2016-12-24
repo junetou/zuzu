@@ -15,20 +15,20 @@ public class AdminUserDetails implements UserDetails
 	private String username;
 	private String password;
 	private String salt;
-	private String mobile;
+	private String user_group;
 	private String name;
 	private boolean enabled;
 	private Collection<GrantedAuthority> grantedAuthorities;
 	private List<String> permissions;
 	
-	public AdminUserDetails(String username, String password, String mobile, String name
+	public AdminUserDetails(String username, String password, String user_group, String name
 			, boolean enabled, Collection<GrantedAuthority> grantedAuthorities
 			, List<String> permissions) {
 		super();
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.mobile = mobile;
+		this.user_group = user_group;
 		this.enabled = enabled;
 		this.grantedAuthorities = grantedAuthorities;
 		this.permissions = permissions;
@@ -74,7 +74,7 @@ public class AdminUserDetails implements UserDetails
 		return permissions;
 	}
 	
-	public String getMobile() {
-		return this.mobile;
+	public String getUser_group() {
+		return this.user_group;
 	}
 }

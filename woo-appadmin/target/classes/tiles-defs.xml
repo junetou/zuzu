@@ -3,16 +3,20 @@
 		"tiles-config_3_0.dtd">
 <tiles-definitions>
 	
-	<definition name="tiles/portalview" template="/WEB-INF/page/layout/index.jsp">
-	    <put-attribute name="content" value="/WEB-INF/page/view/index.jsp" />
+	<definition name="tiles/index/*" template="/WEB-INF/index/template.jsp" >
+	    <put-attribute name="content" value="/WEB-INF/index/{1}.jsp" />
 	</definition>
 	
-	<definition name="tiles/*" template="/WEB-INF/page/layout/main-layout.jsp">
-	    <put-attribute name="content" value="/WEB-INF/page/view/{1}.jsp" />
+	<definition name="tiles/own/*" template="/WEB-INF/own/template.jsp" >
+	    <put-attribute name="content" value="/WEB-INF/own/{1}.jsp" />
 	</definition>
 	
-	<definition name="tiles/includes/*" template="/WEB-INF/page/layout/main-layout.jsp">
-	    <put-attribute name="content" value="/WEB-INF/page/includes/{1}.jsp" />
+	<definition name="tiles/form/*" template="/WEB-INF/form/template.jsp" >
+	    <put-attribute name="content" value="/WEB-INF/form/{1}.jsp" />
+	</definition>
+	
+	<definition name="tiles/particular/*" template="/WEB-INF/particular/template.jsp" >
+	    <put-attribute name="content" value="/WEB-INF/particular/{1}.jsp" />
 	</definition>
 	
 </tiles-definitions>

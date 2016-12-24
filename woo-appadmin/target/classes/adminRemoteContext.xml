@@ -13,48 +13,21 @@
 		</property> 
 	</bean>
 	
-	<bean id="accountMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+	<bean id="companyMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/AccountMaintenanceService</value>
+			<value>http://localhost:80/woo-appserver-service/remoting/CompanyMaintenanceService</value>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IAccountMaintenanceService</value>
+			<value>org.andy.work.appserver.service.ICompanyMaintenanceService</value>
 		</property> 
 	</bean>
 	
-	<bean id="addressMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+	<bean id="solrMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/AddressMaintenanceService</value>
+			<value>http://localhost:80/woo-appserver-service/remoting/SolrMaintenanceService</value>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IAddressMaintenanceService</value>
-		</property> 
-	</bean>
-	
-	<bean id="solrPublishMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/SolrPublishMaintenanceService</value>
-		</property>
-		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ISolrPublishMaintenanceService</value>
-		</property> 
-	</bean>
-	
-	<bean id="solrSearchMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/SolrSearchMaintenanceService</value>
-		</property>
-		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ISolrSearchMaintenanceService</value>
-		</property> 
-	</bean>
-	
-	<bean id="shoppingCartMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/ShoppingCartMaintenanceService</value>
-		</property>
-		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IShoppingCartMaintenanceService</value>
+			<value>org.andy.work.appserver.service.ISolrMaintenanceService</value>
 		</property> 
 	</bean>
 	
@@ -67,85 +40,85 @@
 		</property> 
 	</bean>
 	
-	<bean id="commonMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+	<bean id="purchaseMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/CommonMaintenanceService</value>
+			<value>http://localhost:80/woo-appserver-service/remoting/PurchaseMaintenanceService</value>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ICommonMaintenanceService</value>
+			<value>org.andy.work.appserver.service.IPurchaseMaintenanceService</value>
 		</property> 
 	</bean>
 	
-	<bean id="articleMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+	<bean id="transacationofcompanytoproductMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/ArticleMaintenanceService</value>
+			<value>http://localhost:80/woo-appserver-service/remoting/TransacationofcompanytoproductMaintenanceService</value>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IArticleMaintenanceService</value>
+			<value>org.andy.work.appserver.service.ITransacationofcompanytoproductMaintenanceService</value>
 		</property> 
 	</bean>
 	
-	<bean id="testMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+	<bean id="transacationofcompanytopurchaseMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
 		<property name="serviceUrl">
-			<value>http://localhost:80/woo-appserver-service/remoting/TestMain</value>
+			<value>http://localhost:80/woo-appserver-service/remoting/TransacationofcompanytopurchaseMaintenanceService</value>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ITestMain</value>
+			<value>org.andy.work.appserver.service.ITransacationofcompanytopurchaseMaintenanceService</value>
 		</property> 
 	</bean>
 	
-		<bean id="detailmessageMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-	     <property name="serviceUrl">
-	       <value>http://localhost:80/woo-appserver-service/remoting/DetailmessageMain</value>
-	     </property>
-	     <property name="serviceInterface">
-	       <value>org.andy.work.appserver.service.IDetailmessageMain</value>
-	     </property>
+	<bean id="transacationofusertoproductMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://localhost:80/woo-appserver-service/remoting/TransacationofusertoproductMaintenanceService</value>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.ITransacationofusertoproductMaintenanceService</value>
+		</property> 
 	</bean>
 	
-	<bean id="commentMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-	    <property name="serviceUrl">
-	     <value>http://localhost:80/woo-appserver-service/remoting/CommentMain</value>
-	    </property>
-	    <property name="serviceInterface">
-	     <value>org.andy.work.appserver.service.ICommentMain</value>
-	    </property>    
+	<bean id="transacationofusertopurchaseMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://localhost:80/woo-appserver-service/remoting/TransacationofusertopurchaseMaintenanceService</value>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.ITransacationofusertopurchaseMaintenanceService</value>
+		</property> 
 	</bean>
 	
-	<bean id="fedMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-	    <property name="serviceUrl">
-	     <value>http://localhost:80/woo-appserver-service/remoting/FedMain</value>
-	    </property>
-	    <property name="serviceInterface">
-	     <value>org.andy.work.appserver.service.IFedMain</value>
-	    </property>    
+	<bean id="companyheadMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://localhost:80/woo-appserver-service/remoting/CompanyheadMaintenanceService</value>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.ICompanyheadMaintenanceService</value>
+		</property> 
 	</bean>
-		
-	<bean id="tradeMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-	    <property name="serviceUrl">
-	     <value>http://localhost:80/woo-appserver-service/remoting/TradeMain</value>
-	    </property>
-	    <property name="serviceInterface">
-	     <value>org.andy.work.appserver.service.ITradeMain</value>
-	    </property>    
-	</bean>	
 	
-	<bean id="needMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-	    <property name="serviceUrl">
-	     <value>http://localhost:80/woo-appserver-service/remoting/NeedMain</value>
-	    </property>
-	    <property name="serviceInterface">
-	     <value>org.andy.work.appserver.service.INeedMain</value>
-	    </property>    
-	</bean>	
-		
-	<bean id="needtradeMain" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-	    <property name="serviceUrl">
-	     <value>http://localhost:80/woo-appserver-service/remoting/NeedtradeMain</value>
-	    </property>
-	    <property name="serviceInterface">
-	     <value>org.andy.work.appserver.service.INeedtradeMain</value>
-	    </property>    
-	</bean>		
+	<bean id="fedMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://localhost:80/woo-appserver-service/remoting/FedMaintenanceService</value>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.IFedMaintenanceService</value>
+		</property> 
+	</bean>
+	
+    <bean id="findpasswordMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://localhost:80/woo-appserver-service/remoting/FindpasswordMaintenanceService</value>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.IFindpasswordMaintenanceService</value>
+		</property> 
+	</bean>
+	
+	<bean id="sourceChoose" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl">
+			<value>http://localhost:80/woo-appserver-service/remoting/SourceChoose</value>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.sourcechoose.ISourceChoose</value>
+		</property> 
+	</bean>
 	
 </beans>

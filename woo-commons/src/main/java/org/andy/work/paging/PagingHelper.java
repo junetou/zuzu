@@ -16,7 +16,7 @@ public class PagingHelper {
 	public final static int MAX_PAGE_NUM = 8;
 	
 	public static final int DEFAULT_CURRENT_PAGE_NUM = 1;
-	public static int DEFALUT_NUMBER_PER_PAGE = 8;
+	public static int DEFALUT_NUMBER_PER_PAGE = 20;
 	
 	public static void setNumberPage(int pageSize) {
 		DEFALUT_NUMBER_PER_PAGE = pageSize;

@@ -25,7 +25,7 @@ public class PagerTag extends TagSupport
 	@Override
 	public int doStartTag() throws JspException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("<ul class='pagination'>");
+		sb.append("<ul class='pagination pagination-sm'>");
 		this.buildPreviewBtn(sb);
 		this.buildPager(sb);
 		this.buildNextBtn(sb);
@@ -103,7 +103,7 @@ public class PagerTag extends TagSupport
 		int endPageNum = startPageNum + PagingHelper.MAX_PAGE_NUM;
 		if (this.pgm.getTotalPageNum() < endPageNum) {
 			endPageNum = this.pgm.getTotalPageNum();
-		}
+		}//页数大于5
 		if (this.pgm.getCurrentPageNum() > (PagingHelper.MAX_PAGE_NUM / 2) + 1) {
 			if ("true".equals(this.ajax)) {
 				sb.append("<li class='paginate_button'><a class='page' data-page='1' href='javascript:void(0)'>1</a></li><li class='paginate_button active'><a href='javascript:void(0)'>...</a></li>");
@@ -151,12 +151,6 @@ public class PagerTag extends TagSupport
 		}
 		sb.append("pn=" + pageNum);
 		return sb.toString();
-	}
-	
-	public static void main(String[] args) {
-		String path = "http://localhost/admin/authority/admin/index.htmls?mainMenuId=48&pn=2";
-		System.out.println(path.contains("pn"));
-		System.out.println(path.substring(0, path.indexOf("&pn")));
 	}
 	
 	private void buildNextBtn(StringBuffer sb) {

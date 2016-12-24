@@ -11,48 +11,21 @@
 		</property>
 	</bean>
 	
-	<bean name="/AccountMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	<bean name="/CompanyMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service">
-			<ref bean="accountMaintenanceService"/>
+			<ref bean="companyMaintenanceService"/>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IAccountMaintenanceService</value>
+			<value>org.andy.work.appserver.service.ICompanyMaintenanceService</value>
 		</property>
 	</bean>
 	
-	<bean name="/AddressMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	<bean name="/SolrMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service">
-			<ref bean="addressMaintenanceService"/>
+			<ref bean="solrMaintenanceService"/>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IAddressMaintenanceService</value>
-		</property>
-	</bean>
-	
-	<bean name="/SolrPublishMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service">
-			<ref bean="solrPublishMaintenanceService"/>
-		</property>
-		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ISolrPublishMaintenanceService</value>
-		</property>
-	</bean>
-	
-	<bean name="/SolrSearchMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service">
-			<ref bean="solrSearchMaintenanceService"/>
-		</property>
-		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ISolrSearchMaintenanceService</value>
-		</property>
-	</bean>
-	
-	<bean name="/ShoppingCartMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service">
-			<ref bean="shoppingCartMaintenanceService"/>
-		</property>
-		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IShoppingCartMaintenanceService</value>
+			<value>org.andy.work.appserver.service.ISolrMaintenanceService</value>
 		</property>
 	</bean>
 	
@@ -65,77 +38,85 @@
 		</property>
 	</bean>
 	
-	<bean name="/CommonMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	<bean name="/PurchaseMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service">
-			<ref bean="commonMaintenanceService"/>
+			<ref bean="purchaseMaintenanceService"/>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.ICommonMaintenanceService</value>
+			<value>org.andy.work.appserver.service.IPurchaseMaintenanceService</value>
 		</property>
 	</bean>
 	
-	<bean name="/ArticleMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	<bean name="/TransacationofcompanytoproductMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service">
-			<ref bean="articleMaintenanceService"/>
+			<ref bean="transacationofcompanytoproductMaintenanceService"/>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IArticleMaintenanceService</value>
+			<value>org.andy.work.appserver.service.ITransacationofcompanytoproductMaintenanceService</value>
 		</property>
 	</bean>
 	
-	<bean name="/DetailmessageMain" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	<bean name="/TransacationofcompanytopurchaseMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
 		<property name="service">
-			<ref bean="detailmessageMain"/>
+			<ref bean="transacationofcompanytopurchaseMaintenanceService"/>
 		</property>
 		<property name="serviceInterface">
-			<value>org.andy.work.appserver.service.IDetailmessageMain</value>
+			<value>org.andy.work.appserver.service.ITransacationofcompanytopurchaseMaintenanceService</value>
 		</property>
 	</bean>
 	
-	<bean name="/CommentMain" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-	    <property name="service">
-	        <ref bean="commentMain" />
-	    </property>
-	    <property name="serviceInterface">
-	       <value>org.andy.work.appserver.service.ICommentMain</value>
-	    </property>
+	<bean name="/TransacationofusertoproductMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="transacationofusertoproductMaintenanceService"/>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.ITransacationofusertoproductMaintenanceService</value>
+		</property>
 	</bean>
 	
-	<bean name="/FedMain" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-	    <property name="service">
-	        <ref bean="fedMain" />
-	    </property>
-	    <property name="serviceInterface">
-	       <value>org.andy.work.appserver.service.IFedMain</value>
-	    </property>
+	<bean name="/TransacationofusertopurchaseMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="transacationofusertopurchaseMaintenanceService"/>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.ITransacationofusertopurchaseMaintenanceService</value>
+		</property>
 	</bean>
 	
-	<bean name="/TradeMain" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-	    <property name="service">
-	        <ref bean="tradeMain" />
-	    </property>
-	    <property name="serviceInterface">
-	       <value>org.andy.work.appserver.service.ITradeMain</value>
-	    </property>
+	<bean name="/CompanyheadMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="companyheadMaintenanceService"/>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.ICompanyheadMaintenanceService</value>
+		</property>
 	</bean>
 	
-	<bean name="/NeedMain" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-	    <property name="service">
-	        <ref bean="needMain" />
-	    </property>
-	    <property name="serviceInterface">
-	       <value>org.andy.work.appserver.service.INeedMain</value>
-	    </property>
+	<bean name="/FedMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="fedMaintenanceService"/>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.IFedMaintenanceService</value>
+		</property>
 	</bean>
 	
-	<bean name="/NeedtradeMain" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-	    <property name="service">
-	        <ref bean="needtradeMain" />
-	    </property>
-	    <property name="serviceInterface">
-	       <value>org.andy.work.appserver.service.INeedtradeMain</value>
-	    </property>
+	<bean name="/FindpasswordMaintenanceService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="findpasswordMaintenanceService"/>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.service.IFindpasswordMaintenanceService</value>
+		</property>
 	</bean>
 	
+	<bean name="/SourceChoose" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service">
+			<ref bean="sourceChoose"/>
+		</property>
+		<property name="serviceInterface">
+			<value>org.andy.work.appserver.sourcechoose.ISourceChoose</value>
+		</property>
+	</bean>
 	
 </beans>

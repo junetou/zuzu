@@ -26,41 +26,24 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="usr")
+@Table(name="user")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region="org.andy.work.appserver.model.impl.User")
 public class User implements Serializable, IUser {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3777655431317415578L;
+	private static final long serialVersionUID = 1;
 	private Integer id;
 	private Integer version;
 	private String username;
 	private String displayName;
-	private String staffNum;
-	private String depart;
-	private String mobile;
-	private String phone;
-	private String faxNum;
-	private String email;
-	private String address;
-	private String weixin;
-	private String qqNum;
-	private String remark;
 	private String password;
-	private Integer failLoginCount;
-	private Date failLoginTime;
 	private String locked;
-	private Date lastLogin;
-	private Date createdDate;
-	private String ext1;
-	private String ext2;
-	private String ext3;
-	private Integer userType; // See UserType class
+	private String head;
+	private String phone;
 	private IUserGroup userGroup;
-	private String picture;
-	private Integer chatnumber;
+	private Double money;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -71,39 +54,19 @@ public class User implements Serializable, IUser {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getVersion() {
-		return version;
-	}
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-	@Column(name="usr_name", length=30, unique=true, nullable=false)
+	@Column(name="username", length=30, unique=true, nullable=false)
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	@Column(name="dis_name", length=30, nullable=false)
+	@Column(name="displayname", length=30, nullable=false)
 	public String getDisplayName() {
 		return displayName;
 	}
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-	@Column(name="staffno", length=30, nullable=false)
-	public String getStaffNum() {
-		return staffNum;
-	}
-	public void setStaffNum(String staffNum) {
-		this.staffNum = staffNum;
-	}
-	@Column(name="depart", length=30)
-	public String getDepart() {
-		return depart;
-	}
-	public void setDepart(String depart) {
-		this.depart = depart;
 	}
 	@Column(length=60, nullable=false)
 	public String getPassword() {
@@ -112,126 +75,34 @@ public class User implements Serializable, IUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Column(name="faillogincount")
-	public Integer getFailLoginCount() {
-		return failLoginCount;
-	}
-	public void setFailLoginCount(Integer failLoginCount) {
-		this.failLoginCount = failLoginCount;
-	}
-	@Column(name="failLogintime")
-	public Date getFailLoginTime() {
-		return failLoginTime;
-	}
-	public void setFailLoginTime(Date failLoginTime) {
-		this.failLoginTime = failLoginTime;
-	}
-	@Column(length=2)
+	@Column(name="locked",length=60, nullable=false)
 	public String getLocked() {
 		return locked;
 	}
 	public void setLocked(String locked) {
 		this.locked = locked;
 	}
-	@Column(name="last")
-	public Date getLastLogin() {
-		return lastLogin;
+	@Column(name="head",length=250)
+	public String getHead() {
+		return head;
 	}
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
+	public void setHead(String head) {
+		this.head = head;
 	}
-	@Column(name="crtdate", nullable=false)
-	public Date getCreatedDate() {
-		return createdDate;
+	@Column(name="version",nullable=false)
+	public Integer getVersion() {
+		return version;
 	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
-	@Column(name="mobile", length=30)
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	@Column(name="phone", length=30)
+	@Column(name="phone",nullable=false)
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	@Column(name="faxno", length=30)
-	public String getFaxNum() {
-		return faxNum;
-	}
-	public void setFaxNum(String faxNum) {
-		this.faxNum = faxNum;
-	}
-	@Column(name="email", length=60)
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	@Column(name="addr", length=250)
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	@Column(name="weixin", length=20)
-	public String getWeixin() {
-		return weixin;
-	}
-	public void setWeixin(String weixin) {
-		this.weixin = weixin;
-	}
-	@Column(name="qqno", length=25)
-	public String getQqNum() {
-		return qqNum;
-	}
-	public void setQqNum(String qqNum) {
-		this.qqNum = qqNum;
-	}
-	@Column(name="remark", length=500)
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	@Column(name="ext1", length=60)
-	public String getExt1() {
-		return ext1;
-	}
-	public void setExt1(String ext1) {
-		this.ext1 = ext1;
-	}
-	@Column(name="ext2", length=60)
-	public String getExt2() {
-		return ext2;
-	}
-	public void setExt2(String ext2) {
-		this.ext2 = ext2;
-	}
-	@Column(name="ext3", length=60)
-	public String getExt3() {
-		return ext3;
-	}
-	public void setExt3(String ext3) {
-		this.ext3 = ext3;
-	}
-	@Column(name="usr_type")
-	public Integer getUserType() {
-		return userType;
-	}
-	public void setUserType(Integer userType) {
-		this.userType = userType;
-	}
-	
 	@ManyToOne(fetch=FetchType.EAGER, targetEntity=UserGroup.class)
 	@JoinColumn(name="group_id")
 	public IUserGroup getUserGroup() {
@@ -240,21 +111,13 @@ public class User implements Serializable, IUser {
 	public void setUserGroup(IUserGroup userGroup) {
 		this.userGroup = userGroup;
 	}
+	@Column(name="money",nullable=false,scale=4)
+	public Double getMoney() {
+		return money;
+	}
+	public void setMoney(Double money) {
+		this.money = money;
+	}
 	
-	@Column(name="picture")
-	public String getPicture() {
-		return picture;
-	}
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-	
-	@Column(name="chatnumber")
-	public Integer getChatnumber() {
-		return chatnumber;
-	}
-	public void setChatnumber(Integer chatnumber) {
-		this.chatnumber = chatnumber;
-	}
 	
 }

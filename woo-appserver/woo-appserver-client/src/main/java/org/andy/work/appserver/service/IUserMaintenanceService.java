@@ -33,9 +33,7 @@ public interface IUserMaintenanceService {
 	IUserGroup getUserGroupByName(String name);
 	
 	List<String> getGroupUsers(Integer groupId);
-
-	SearchResponse<IUserGroup> searchSearchResponse(SearchRequest<String> searchReq);
-
+	
 	SearchResponse<IUser> searchUser(SearchRequest<AcctUserSearchCriteria> searchReq);
 
 	boolean isAccount(String account);
